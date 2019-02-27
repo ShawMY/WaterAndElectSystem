@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.zjgsu.shuidiansys.dao.IWaterCopyDao">
+
+    <select id="getRowCountByPage" resultType="int">
+		select count(*) from water_copy
+	</select>
+
+    <select id="getRowCountByQuery" resultType="int" parameterType="map">
+        select count(*) from water_copy
+        <where>
+            <if test="water.waterMeterId != null and water.waterMeterId!=''">waterMeterId=#{water.waterMeterId} and</if>
+            <if test="beginTime != null and beginTime != '' ">
+                <![CDATA[meterReadTime >= #{beginTime} and]]>
+            </if>
+            <if test="endTime != null and endTime != '' ">
+                <![CDATA[ meterReadTime <= #{endTime} and]]>
+            </if>
+            <if test="water.id != null and water.id!=0">id =#{water.id} and</if>
+            <if test="water.previousDegree != null and water.previousDegree!=0">previousDegree =#{water.previousDegree} and</if>
+            <if test="water.meterReader !=null and water.meterReader!='' ">meterReader =#{water.meterReader} and</if>
+            <if test="water.firstAddress !=null and water.firstAddress!='' ">firstAddress =#{water.firstAddress} and</if>
+            <if test="water.secondAddress !=null and water.secondAddress!='' ">secondAddress =#{water.secondAddress} and</if>
+            <if test="water.thirdAddress !=null and water.thirdAddress!='' ">thirdAddress =#{water.thirdAddress} and</if>
+            <if test="water.fourthAddress !=null and water.fourthAddress!='' ">fourthAddress =#{water.fourthAddress} and</if>
+            <if test="water.fifthAddress !=null and water.fifthAddress!='' ">fifthAddress =#{water.fifthAddress} and</if>
+            <if test="water.sixthAddress !=null and water.sixthAddress!='' ">sixthAddress =#{water.sixthAddress} and</if>
+            1=1
+        </where>
+    </select>
+
+    <select id="selectByParams" resultType="com.zjgsu.shuidiansys.pojo.WaterCopy" parameterType="map">
+		select * from water_copy
+		order by id desc
+		limit ${offset}, ${size}
+	</select>
+
+    <select id="selectByQuery" resultType="com.zjgsu.shuidiansys.pojo.WaterCopy" parameterType="map">
+        select * from water_copy
+        <where>
+            <if test="water.waterMeterId != null and water.waterMeterId!=''">waterMeterId=#{water.waterMeterId} and</if>
+            <if test="beginTime != null and beginTime != '' ">
+                <![CDATA[meterReadTime >= #{beginTime} and]]>
+            </if>
+            <if test="endTime != null and endTime != '' ">
+                <![CDATA[ meterReadTime <= #{endTime} and]]>
+            </if>
+            <if test="water.id != null and water.id!=0">id =#{water.id} and</if>
+            <if test="water.previousDegree != null and water.previousDegree!=0">previousDegree =#{water.previousDegree} and</if>
+            <if test="water.meterReader !=null and water.meterReader!='' ">meterReader =#{water.meterReader} and</if>
+            <if test="water.firstAddress !=null and water.firstAddress!='' ">firstAddress =#{water.firstAddress} and</if>
+            <if test="water.secondAddress !=null and water.secondAddress!='' ">secondAddress =#{water.secondAddress} and</if>
+            <if test="water.thirdAddress !=null and water.thirdAddress!='' ">thirdAddress =#{water.thirdAddress} and</if>
+            <if test="water.fourthAddress !=null and water.fourthAddress!='' ">fourthAddress =#{water.fourthAddress} and</if>
+            <if test="water.fifthAddress !=null and water.fifthAddress!='' ">fifthAddress =#{water.fifthAddress} and</if>
+            <if test="water.sixthAddress !=null and water.sixthAddress!='' ">sixthAddress =#{water.sixthAddress} and</if>
+            1=1
+        </where>
+        order by id desc
+        limit ${offset}, ${size}
+    </select>
+    <update id="update" parameterType="com.zjgsu.shuidiansys.pojo.WaterCopy">
+        update water_copy
+        <set>
+            <if test="waterMeterId != null and waterMeterId!=''">waterMeterId=#{waterMeterId},</if>
+            <if test="meterReadTime != null and meterReadTime!=''">meterReadTime=#{meterReadTime},</if>
+            <if test="previousDegree != null and previousDegree!=0">previousDegree =#{previousDegree},</if>
+            <if test="meterReader !=null and meterReader!='' ">meterReader =#{meterReader},</if>
+            <if test="firstAddress !=null and firstAddress!='' ">firstAddress =#{firstAddress},</if>
+            <if test="secondAddress !=null and secondAddress!='' ">secondAddress =#{secondAddress},</if>
+            <if test="thirdAddress !=null and thirdAddress!='' ">thirdAddress =#{thirdAddress},</if>
+            <if test="fourthAddress !=null and fourthAddress!='' ">fourthAddress =#{fourthAddress},</if>
+            <if test="fifthAddress !=null and fifthAddress!='' ">fifthAddress =#{fifthAddress},</if>
+            <if test="sixthAddress !=null and sixthAddress!='' ">sixthAddress =#{sixthAddress},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!-- 批量删除 -->
+    <delete id="delete" parameterType="java.util.List" >
+        delete from water_copy where id in
+        <foreach collection = "list" item="id" index="no" open="("
+                 separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <insert id="insert" parameterType="com.zjgsu.shuidiansys.pojo.WaterCopy">
+		insert into water_copy( id,waterMeterId,firstAddress,secondAddress,thirdAddress,fourthAddress,fifthAddress,sixthAddress,previousDegree,meterReader,meterReadTime)
+               values(#{id},#{waterMeterId}, #{firstAddress},#{secondAddress},#{thirdAddress},#{fourthAddress},#{fifthAddress},#{sixthAddress},#{previousDegree},#{meterReader},#{meterReadTime})
+	</insert>
+
+    <select id="selectByIds" resultType="com.zjgsu.shuidiansys.pojo.WaterCopy">
+        SELECT * FROM water_copy
+        WHERE id in
+        <foreach collection="Ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="getRowCountById" resultType="int" parameterType="string">
+        select count(*) from water_copy
+        where waterMeterId = #{id}
+    </select>
+</mapper>

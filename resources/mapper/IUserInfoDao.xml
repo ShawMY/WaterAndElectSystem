@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.zjgsu.shuidiansys.dao.IUserInfoDao">
+
+    <select id="getRowCountByPage" resultType="int">
+		select count(*) from user_info
+	</select>
+
+    <select id="getRowCountByQuery" resultType="int" parameterType="com.zjgsu.shuidiansys.pojo.UserInfo">
+        select count(*) from user_info
+        <where>
+            <if test="userId != null and userId!=''">userId=#{userId} and</if>
+            <if test="userName != null and userName!=''">userName=#{userName} and</if>
+            <if test="userCategoryName != null and userCategoryName!=''">userCategoryName =#{userCategoryName} and</if>
+            <if test="userCategoryId != null and userCategoryId!=0">userCategoryId =#{userCategoryId} and</if>
+            <if test="meterId != null and meterId!=''">meterId =#{meterId} and</if>
+            <if test="meterCategory !=null and meterCategory!=''">meterCategory =#{meterCategory}and</if>
+            <if test="paymentMethod!=null and paymentMethod!=''">paymentMethod =#{paymentMethod} and</if>
+            <if test="accountOpenTime!=null and accountOpenTime!='' ">accountOpenTime =#{accountOpenTime} and</if>
+            <if test="accountCloseTime !=null and accountCloseTime!='' ">accountCloseTime =#{accountCloseTime} and</if>
+            <if test="contact !=null and contact!='' ">contact =#{contact} and</if>
+            <if test="phoneNumber !=null and phoneNumber!='' ">phoneNumber =#{phoneNumber} and</if>
+            1=1
+        </where>
+    </select>
+
+    <select id="selectByParams" resultType="com.zjgsu.shuidiansys.pojo.UserInfo" parameterType="map">
+		select * from user_info
+		order by userId desc
+		limit ${offset}, ${size}
+	</select>
+
+    <update id="updateUserInfo" parameterType="com.zjgsu.shuidiansys.pojo.UserInfo">
+        update user_info
+        <set>
+            <if test="userName != null and userName!=''">userName=#{userName},</if>
+            <if test="userCategoryName != null and userCategoryName!=''">userCategoryName =#{userCategoryName},</if>
+            <if test="userCategoryId != null and userCategoryId!=0">userCategoryId =#{userCategoryId},</if>
+            <if test="meterCategory !=null and meterCategory!=''">meterCategory =#{meterCategory},</if>
+            <if test="paymentMethod!=null and paymentMethod!=''">paymentMethod =#{paymentMethod},</if>
+            <if test="accountOpenTime!=null and accountOpenTime!='' ">accountOpenTime =#{accountOpenTime},</if>
+            <if test="accountCloseTime !=null and accountCloseTime!='' ">accountCloseTime =#{accountCloseTime},</if>
+            <if test="contact !=null and contact!='' ">contact =#{contact},</if>
+            <if test="phoneNumber !=null and phoneNumber!='' ">phoneNumber =#{phoneNumber},</if>
+        </set>
+        where userId=#{userId} and meterId = #{meterId}
+    </update>
+
+    <!-- 批量删除 -->
+    <delete id="deleteUserInfo" parameterType="java.util.List" >
+        delete from user_info where (userId,meterId) in
+        <foreach collection = "Ids" item="id" index="no" open="("
+                 separator="," close=")">
+            (#{id.userId},#{id.meterId})
+        </foreach>
+    </delete>
+
+    <insert id="addUserInfo" parameterType="com.zjgsu.shuidiansys.pojo.UserInfo">
+		insert into user_info( userId, userName, userCategoryName,userCategoryId, meterId,meterCategory,paymentMethod,accountOpenTime,accountCloseTime,contact,phoneNumber)
+               values(#{userId}, #{userName},#{userCategoryName}, #{userCategoryId}, #{meterId}, #{meterCategory},#{paymentMethod},#{accountOpenTime},#{accountCloseTime},#{contact},#{phoneNumber})
+	</insert>
+
+    <select id="selectTopOne" resultType="com.zjgsu.shuidiansys.pojo.UserInfo" >
+		select * from user_info
+		order by userId desc
+		limit 1
+	</select>
+
+    <select id="selectByCondition" resultType="com.zjgsu.shuidiansys.pojo.UserInfo" parameterType="map">
+		select * from user_info
+        <where>
+            <if test="user.userId != null and user.userId!=''">userId=#{user.userId} and</if>
+            <if test="user.userName != null and user.userName!=''">userName=#{user.userName} and</if>
+            <if test="user.userCategoryName != null and user.userCategoryName!=''">userCategoryName =#{user.userCategoryName} and</if>
+            <if test="user.userCategoryId != null and user.userCategoryId!=0">userCategoryId =#{user.userCategoryId} and</if>
+            <if test="user.meterId != null and user.meterId!=''">meterId =#{user.meterId} and</if>
+            <if test="user.meterCategory !=null and user.meterCategory!=''">meterCategory =#{user.meterCategory}and</if>
+            <if test="user.paymentMethod!=null and user.paymentMethod!=''">paymentMethod =#{user.paymentMethod} and</if>
+            <if test="user.accountOpenTime!=null and user.accountOpenTime!='' ">accountOpenTime =#{user.accountOpenTime} and</if>
+            <if test="user.accountCloseTime !=null and user.accountCloseTime!='' ">accountCloseTime =#{user.accountCloseTime} and</if>
+            <if test="user.contact !=null and user.contact!='' ">contact =#{user.contact} and</if>
+            <if test="user.phoneNumber !=null and user.phoneNumber!='' ">phoneNumber =#{user.phoneNumber} and</if>
+            1=1
+        </where>
+		order by userId desc
+        limit ${offset}, ${size}
+	</select>
+
+    <select id="selectCatByName" resultType="com.zjgsu.shuidiansys.pojo.UserCategory" parameterType="String">
+		select * from user_category
+		where userCategoryName=#{name}
+	</select>
+
+    <select id="selectByMeterId" resultType="com.zjgsu.shuidiansys.pojo.UserInfo" parameterType="String">
+		select * from user_info
+		where meterId=#{id}
+	</select>
+
+    <select id="selectByName" resultType="com.zjgsu.shuidiansys.pojo.UserInfo" parameterType="String">
+		select * from user_info
+		where userName=#{name}
+		order by userId desc
+		limit 1
+	</select>
+</mapper>

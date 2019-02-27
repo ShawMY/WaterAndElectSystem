@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.zjgsu.shuidiansys.dao.IElectricInfoDao">
+
+    <select id="getRowCountByPage" resultType="int">
+		select count(*) from electricity_info
+	</select>
+
+    <select id="getRowCountByQuery" resultType="int" parameterType="com.zjgsu.shuidiansys.pojo.ElectricInfo">
+        select count(*) from electricity_info
+        <where>
+            <if test="electricityMeterId != null and electricityMeterId!=''">electricityMeterId=#{electricityMeterId} and</if>
+            <if test="level != null and level!=''">level=#{level} and</if>
+            <if test="superiorId != null and superiorId!=''">superiorId =#{superiorId} and</if>
+            <if test="charger != null and charger!=''">charger =#{charger} and</if>
+            <if test="receivableParty != null and receivableParty!=''">receivableParty =#{receivableParty} and</if>
+            <if test="installTime !=null">installTime =#{installTime}and</if>
+            <if test="scrappedTime!=null">scrappedTime =#{scrappedTime} and</if>
+            <if test="firstAddress !=null and firstAddress!='' ">firstAddress =#{firstAddress} and</if>
+            <if test="secondAddress !=null and secondAddress!='' ">secondAddress =#{secondAddress} and</if>
+            <if test="thirdAddress !=null and thirdAddress!='' ">thirdAddress =#{thirdAddress} and</if>
+            <if test="fourthAddress !=null and fourthAddress!='' ">fourthAddress =#{fourthAddress} and</if>
+            <if test="fifthAddress !=null and fifthAddress!='' ">fifthAddress =#{fifthAddress} and</if>
+            <if test="sixthAddress !=null and sixthAddress!='' ">sixthAddress =#{sixthAddress} and</if>
+            <if test="meterBottom !=null and meterBottom!=0 ">meterBottom =#{meterBottom} and</if>
+            <if test="finalDegree !=null and finalDegree!=0 ">finalDegree =#{finalDegree} and</if>
+            <if test="maxDegree !=null and maxDegree!=0 ">maxDegree =#{maxDegree} and</if>
+            <if test="flipTime !=null and flipTime!=0 ">flipTime =#{flipTime} and</if>
+            <if test="magnification !=null and magnification!=0 ">magnification =#{magnification} and</if>
+            <if test="state !=null and state!='' ">state =#{state} and</if>
+            1=1
+        </where>
+    </select>
+
+    <select id="selectByParams" resultType="com.zjgsu.shuidiansys.pojo.ElectricInfo" parameterType="map">
+		select * from electricity_info
+		order by electricityMeterId desc
+		limit ${offset}, ${size}
+	</select>
+
+    <select id="selectByQuery" resultType="com.zjgsu.shuidiansys.pojo.ElectricInfo" parameterType="map">
+        select * from electricity_info
+        <where>
+            <if test="electric.electricityMeterId != null and electric.electricityMeterId!=''">electricityMeterId=#{electric.electricityMeterId} and</if>
+            <if test="electric.level != null and electric.level!=''">level=#{electric.level} and</if>
+            <if test="electric.superiorId != null and electric.superiorId!=''">superiorId =#{electric.superiorId} and</if>
+            <if test="electric.charger != null and electric.charger!=''">charger =#{electric.charger} and</if>
+            <if test="electric.receivableParty != null and electric.receivableParty!=''">receivableParty =#{electric.receivableParty} and</if>
+            <if test="electric.installTime !=null">installTime =#{electric.installTime}and</if>
+            <if test="electric.scrappedTime!=null">scrappedTime =#{electric.scrappedTime} and</if>
+            <if test="electric.firstAddress !=null and electric.firstAddress!='' ">firstAddress =#{electric.firstAddress} and</if>
+            <if test="electric.secondAddress !=null and electric.secondAddress!='' ">secondAddress =#{electric.secondAddress} and</if>
+            <if test="electric.thirdAddress !=null and electric.thirdAddress!='' ">thirdAddress =#{electric.thirdAddress} and</if>
+            <if test="electric.fourthAddress !=null and electric.fourthAddress!='' ">fourthAddress =#{electric.fourthAddress} and</if>
+            <if test="electric.fifthAddress !=null and electric.fifthAddress!='' ">fifthAddress =#{electric.fifthAddress} and</if>
+            <if test="electric.sixthAddress !=null and electric.sixthAddress!='' ">sixthAddress =#{electric.sixthAddress} and</if>
+            <if test="electric.meterBottom !=null and electric.meterBottom!=0 ">meterBottom =#{electric.meterBottom} and</if>
+            <if test="electric.finalDegree !=null and electric.finalDegree!=0 ">finalDegree =#{electric.finalDegree} and</if>
+            <if test="electric.maxDegree !=null and electric.maxDegree!=0 ">maxDegree =#{electric.maxDegree} and</if>
+            <if test="electric.flipTime !=null and electric.flipTime!=0 ">flipTime =#{electric.flipTime} and</if>
+            <if test="electric.magnification !=null and electric.magnification!=0 ">magnification =#{electric.magnification} and</if>
+            <if test="electric.state !=null and electric.state!='' ">state =#{electric.state} and</if>
+            1=1
+        </where>
+        order by electricityMeterId desc
+        limit ${offset}, ${size}
+    </select>
+    <update id="update" parameterType="com.zjgsu.shuidiansys.pojo.ElectricInfo">
+        update electricity_info
+        <set>
+            <if test="level != null and level!=''">level=#{level},</if>
+            <if test="superiorId != null and superiorId!=''">superiorId =#{superiorId},</if>
+            <if test="charger != null and charger!=''">charger =#{charger},</if>
+            <if test="receivableParty != null and receivableParty!=''">receivableParty =#{receivableParty},</if>
+            <if test="installTime !=null">installTime =#{installTime},</if>
+            <if test="scrappedTime!=null">scrappedTime =#{scrappedTime},</if>
+            <if test="firstAddress !=null and firstAddress!='' ">firstAddress =#{firstAddress},</if>
+            <if test="secondAddress !=null and secondAddress!='' ">secondAddress =#{secondAddress},</if>
+            <if test="thirdAddress !=null and thirdAddress!='' ">thirdAddress =#{thirdAddress},</if>
+            <if test="fourthAddress !=null and fourthAddress!='' ">fourthAddress =#{fourthAddress},</if>
+            <if test="fifthAddress !=null and fifthAddress!='' ">fifthAddress =#{fifthAddress},</if>
+            <if test="sixthAddress !=null and sixthAddress!='' ">sixthAddress =#{sixthAddress},</if>
+            <if test="meterBottom !=null and meterBottom!=0 ">meterBottom =#{meterBottom},</if>
+            <if test="finalDegree !=null and finalDegree!=0 ">finalDegree =#{finalDegree},</if>
+            <if test="maxDegree !=null and maxDegree!=0 ">maxDegree =#{maxDegree},</if>
+            <if test="flipTime !=null and flipTime!=0 ">flipTime =#{flipTime},</if>
+            <if test="magnification !=null and magnification!=0 ">magnification =#{magnification},</if>
+            <if test="state !=null and state!='' ">state =#{state},</if>
+        </set>
+        where electricityMeterId=#{electricityMeterId}
+    </update>
+
+    <!-- 批量删除 -->
+    <delete id="delete" parameterType="java.util.List" >
+        delete from electricity_info where electricityMeterId in
+        <foreach collection = "list" item="id" index="no" open="("
+                 separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectLikeInfo" resultType="com.zjgsu.shuidiansys.pojo.ElectricInfo" parameterType="string">
+		select * from electricity_info
+		where electricityMeterId like #{id}
+		order by electricityMeterId desc
+		limit 1
+	</select>
+
+    <select id="selectByLevel" resultType="com.zjgsu.shuidiansys.pojo.ElectricInfo" parameterType="string">
+		select * from electricity_info
+		where level = #{level}
+	</select>
+
+    <insert id="insert" parameterType="com.zjgsu.shuidiansys.pojo.ElectricInfo">
+		insert into electricity_info( electricityMeterId, level, superiorId,charger,receivableParty,installTime,firstAddress,secondAddress,thirdAddress,fourthAddress,fifthAddress,sixthAddress,meterBottom,maxDegree,flipTime,magnification,state)
+               values(#{electricityMeterId}, #{level},#{superiorId}, #{charger}, #{receivableParty},#{installTime},#{firstAddress},#{secondAddress},#{thirdAddress},#{fourthAddress},#{fifthAddress},#{sixthAddress},#{meterBottom},#{maxDegree},#{flipTime},#{magnification},#{state})
+	</insert>
+
+    <select id="selectByAddr" resultType="com.zjgsu.shuidiansys.pojo.ElectricInfo" >
+		select * from electricity_info
+		where firstAddress = #{0} and secondAddress=#{1} and ISNULL(thirdAddress)
+	</select>
+
+    <select id="selectAllByQuery" resultType="com.zjgsu.shuidiansys.pojo.ElectricInfo" >
+        select * from electricity_info
+        <where>
+            <if test="electricityMeterId != null and electricityMeterId!=''">electricityMeterId=#{electricityMeterId} and</if>
+            <if test="level != null and level!=''">level=#{level} and</if>
+            <if test="superiorId != null and superiorId!=''">superiorId =#{superiorId} and</if>
+            <if test="charger != null and charger!=''">charger =#{charger} and</if>
+            <if test="receivableParty != null and receivableParty!=''">receivableParty =#{receivableParty} and</if>
+            <if test="installTime !=null">installTime =#{installTime}and</if>
+            <if test="scrappedTime!=null">scrappedTime =#{scrappedTime} and</if>
+            <if test="firstAddress !=null and firstAddress!='' ">firstAddress =#{firstAddress} and</if>
+            <if test="secondAddress !=null and secondAddress!='' ">secondAddress =#{secondAddress} and</if>
+            <if test="thirdAddress !=null and thirdAddress!='' ">thirdAddress =#{thirdAddress} and</if>
+            <if test="fourthAddress !=null and fourthAddress!='' ">fourthAddress =#{fourthAddress} and</if>
+            <if test="fifthAddress !=null and fifthAddress!='' ">fifthAddress =#{fifthAddress} and</if>
+            <if test="sixthAddress !=null and sixthAddress!='' ">sixthAddress =#{sixthAddress} and</if>
+            <if test="meterBottom !=null and meterBottom!=0 ">meterBottom =#{meterBottom} and</if>
+            <if test="finalDegree !=null and finalDegree!=0 ">finalDegree =#{finalDegree} and</if>
+            <if test="maxDegree !=null and maxDegree!=0 ">maxDegree =#{maxDegree} and</if>
+            <if test="flipTime !=null and flipTime!=0 ">flipTime =#{flipTime} and</if>
+            <if test="magnification !=null and magnification!=0 ">magnification =#{magnification} and</if>
+            <if test="state !=null and state!='' ">state =#{state} and</if>
+            1=1
+        </where>
+    </select>
+
+    <select id="selectById" resultType="com.zjgsu.shuidiansys.pojo.ElectricInfo" >
+		select * from electricity_info
+		where electricityMeterId = #{electricId}
+	</select>
+
+    <select id="selectAll" resultType="com.zjgsu.shuidiansys.pojo.ElectricInfo" >
+		select * from electricity_info
+	</select>
+</mapper>

@@ -1,0 +1,111 @@
+﻿<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+		<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+		<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+		<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script><![endif]-->
+		<title>后台登录 - 浙江工商大学水电管理系统</title>
+		<meta name="keywords" content="H-ui.admin v3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
+		<meta name="description" content="H-ui.admin v3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+	</head>
+
+	<body>
+		<header class="navbar-wrapper">
+			<div class="navbar navbar-fixed-top">
+				<div class="container-fluid cl">
+					<a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml" style="height: 55px; font-size: 24px; padding-top: 5px;">浙江工商大学水电管理系统</a>
+				</div>
+			</div>
+		</header>
+		<div class="loginWraper">
+			<div class="row">
+				<!--<div class="col-md-5" id="login-pic">
+				</div>-->
+				<div id="loginform" class="loginBox col-md-6 col-md-offset-3 pt-30 pb-30">
+					<form class="form form-horizontal">
+						<div class="row cl">
+							<label class="form-label col-xs-3 login-label"><i class="Hui-iconfont">&#xe60d;</i></label>
+							<div class="formControls col-xs-8">
+								<input id="account" name="name" type="text" placeholder="账户" class="input-text size-L login-form">
+							</div>
+						</div>
+						<div class="row cl">
+							<label class="form-label col-xs-3 login-label"><i class="Hui-iconfont">&#xe60e;</i></label>
+							<div class="formControls col-xs-8">
+								<input id="password" name="password" type="password" placeholder="密码" class="input-text size-L login-form">
+							</div>
+						</div>
+						<div class="row cl">
+							<div class="formControls col-xs-8 col-xs-offset-3 mt-30">
+								<input onclick="login()" name="" class="btn btn-success radius size-L btn-login" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+								<input name="" type="reset" class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="ip.js"></script>
+		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+		<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script>
+		<script>
+			$(function() {
+				$("._header").load("_header.html");
+			});
+
+			function login() {
+//				var ip = 'http://101.132.45.14:8080/shuidiansystem',
+				var	logUrl = '/api/authorization';
+
+				$.ajax({
+					type: "post",
+					url: ip + logUrl,
+					data: JSON.stringify({
+						username: $("#account").val(),
+						password: $("#password").val()
+					}),
+					contentType: 'application/json',
+					dataType: 'json',
+					success: function(res) {
+						if(res.code == 200) {
+							$.cookie('role', res.content.type, {path: '/'});
+							if($.cookie('isLogin') == null) {
+								$.cookie('isLogin', 'true', {path: '/'});
+							}
+							else if($.cookie('isLogin') == 'null') {
+								$.cookie('isLogin', 'true');
+							}
+							console.log("+++");
+							console.log($.cookie('isLogin'));
+							window.location.href = "index.html";
+						}
+						else {
+							layer.msg(res.msg, {
+								icon: 2,
+								time: 3000
+							});
+						}
+					},
+					async: true
+				});
+			}
+		</script>
+	</body>
+
+</html>

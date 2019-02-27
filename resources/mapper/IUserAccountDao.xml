@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.zjgsu.shuidiansys.dao.IUserAccountDao">
+
+	<select id="selectByAccount" parameterType="string" resultType="com.zjgsu.shuidiansys.pojo.UserAccount">
+		select * from admin_account where account = #{account}
+	</select>
+
+	<select id="selectAll" resultType="com.zjgsu.shuidiansys.pojo.UserAccount">
+		select * from admin_account
+	</select>
+
+	<delete id="delete" parameterType="java.util.List" >
+		delete from admin_account where account = #{id}
+	</delete>
+
+	<insert id="insert" parameterType="com.zjgsu.shuidiansys.pojo.UserAccount">
+		insert into admin_account( account,password,permission)
+               values(#{account},#{password}, #{permission})
+	</insert>
+
+	<update id="update" parameterType="com.zjgsu.shuidiansys.pojo.UserAccount">
+		update admin_account
+		<set>
+			<if test="password != null and password!=''">password=#{password},</if>
+			<if test="permission != null and permission!=0">permission=#{permission},</if>
+		</set>
+		where account=#{account}
+	</update>
+
+
+</mapper>

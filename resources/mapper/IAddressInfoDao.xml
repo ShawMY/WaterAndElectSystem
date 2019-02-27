@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.zjgsu.shuidiansys.dao.IAddressInfoDao">
+
+    <select id="getRowCountByPage" resultType="int">
+		select count(*) from address_info
+	</select>
+
+    <select id="getRowCountByQuery" resultType="int" parameterType="string">
+        select count(*) from address_info
+        <where>
+            <if test="level != null and level!=''">addressLevel=#{level}</if>
+        </where>
+    </select>
+
+    <select id="selectByParams" resultType="com.zjgsu.shuidiansys.pojo.AddressInfo" parameterType="map">
+		select * from address_info
+		order by addressId desc
+		limit ${offset}, ${size}
+	</select>
+
+    <update id="updateAddress" parameterType="com.zjgsu.shuidiansys.pojo.UserInfo">
+        update address_info
+        <set>
+            <if test="addressLevel != null and addressLevel!=''">addressLevel =#{addressLevel},</if>
+            <if test="address != null and address!=''">address =#{address},</if>
+            <if test="superiorId != null and superiorId!=''">superiorId =#{superiorIdsuperiorId},</if>
+        </set>
+        where addressId=#{addressId}
+    </update>
+
+    <!-- 批量删除 -->
+    <delete id="deleteAddress" parameterType="java.util.List" >
+        delete from address_info where addressId in
+        <foreach collection = "list" item="id" index="no" open="("
+                 separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <insert id="addAddress" parameterType="com.zjgsu.shuidiansys.pojo.AddressInfo">
+		insert into address_info( addressId, addressLevel, address,superiorId)
+               values(#{addressId}, #{addressLevel},#{address}, #{superiorId})
+	</insert>
+
+    <select id="selectPreAdress" resultType="com.zjgsu.shuidiansys.pojo.AddressInfo" parameterType="String">
+		select * from address_info
+		where addressId=#{id}
+	</select>
+
+    <select id="selectByLevelParams" resultType="com.zjgsu.shuidiansys.pojo.AddressInfo" parameterType="map">
+        select * from address_info
+        <where>
+            <if test="address != null and address!=''">addressLevel=#{address}</if>
+        </where>
+        order by addressId desc
+        limit ${offset}, ${size}
+    </select>
+
+    <select id="selectLikeAddress" resultType="com.zjgsu.shuidiansys.pojo.AddressInfo" parameterType="map">
+		select * from address_info
+		where addressId = #{preCode} and addressLevel='${level}'
+		order by addressId desc
+		limit 1
+	</select>
+
+    <select id="selectByName" resultType="com.zjgsu.shuidiansys.pojo.AddressInfo" parameterType="string">
+		select * from address_info
+		where address =#{name}
+	</select>
+
+    <select id="selectByPreAndLevel" resultType="com.zjgsu.shuidiansys.pojo.AddressInfo" parameterType="string">
+		select * from address_info
+		<where>
+            <if test="preCode != null and preCode!=''">superiorId=#{preCode} and </if>
+            <if test="level != null and level!=''">addressLevel=#{level} and </if>
+            1=1
+        </where>
+	</select>
+</mapper>

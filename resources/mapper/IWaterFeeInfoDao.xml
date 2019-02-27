@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.zjgsu.shuidiansys.dao.IWaterFeeInfoDao">
+
+    <select id="getRowCountByPage" resultType="int">
+		select count(*) from water_fee_info
+	</select>
+
+    <select id="getRowCountByQuery" resultType="int" parameterType="map">
+        select count(*) from water_fee_info
+        <where>
+            <if test="water.waterMeterId != null and water.waterMeterId!=''">waterMeterId=#{water.waterMeterId} and</if>
+            <if test="beginTime != null and beginTime != '' ">
+                <![CDATA[meterReadTime >= #{beginTime} and]]>
+            </if>
+            <if test="endTime != null and endTime != '' ">
+                <![CDATA[ meterReadTime <= #{endTime} and]]>
+            </if>
+            <if test="water.userId != null and water.userId!=''">userId =#{water.userId} and</if>
+            <if test="water.id != null and water.id!=0">id =#{water.id} and</if>
+            <if test="water.paymentState !=null and water.paymentState!='' ">paymentState =#{water.paymentState} and</if>
+            <if test="water.paymentTime !=null and water.paymentTime!='' ">paymentTime =#{water.paymentTime} and</if>
+            <if test="water.paymentDeadLine !=null and water.paymentDeadLine!='' ">paymentDeadLine =#{water.paymentDeadLine} and</if>
+            <if test="water.isBilling !=null and water.isBilling!='' ">isBilling =#{water.isBilling} and</if>
+            <if test="water.latePaymentState !=null and water.latePaymentState!='' ">latePaymentState =#{water.latePaymentState} and</if>
+            <if test="water.meterReader !=null and water.meterReader!='' ">meterReader =#{water.meterReader} and</if>
+            <if test="water.reporter !=null and water.reporter!='' ">reporter =#{water.reporter} and</if>
+            <if test="water.certificate !=null and water.certificate!='' ">certificate =#{water.certificate} and</if>
+            1=1
+        </where>
+    </select>
+
+    <select id="selectByParams" resultType="com.zjgsu.shuidiansys.pojo.WaterFeeInfo" parameterType="map">
+		select * from water_fee_info
+		order by id desc
+		limit ${offset}, ${size}
+	</select>
+
+    <select id="selectByQuery" resultType="com.zjgsu.shuidiansys.pojo.WaterFeeInfo" parameterType="map">
+        select * from water_fee_info
+            <where>
+                <if test="water.waterMeterId != null and water.waterMeterId!=''">waterMeterId=#{water.waterMeterId} and</if>
+                <if test="beginTime != null and beginTime != '' ">
+                    <![CDATA[meterReadTime >= #{beginTime} and]]>
+                </if>
+                <if test="endTime != null and endTime != '' ">
+                    <![CDATA[ meterReadTime <= #{endTime} and]]>
+                </if>
+                <if test="water.userId != null and water.userId!=''">userId =#{water.userId} and</if>
+                <if test="water.id != null and water.id!=0">id =#{water.id} and</if>
+                <if test="water.paymentState !=null and water.paymentState!='' ">paymentState =#{water.paymentState} and</if>
+                <if test="water.paymentTime !=null and water.paymentTime!='' ">paymentTime =#{water.paymentTime} and</if>
+                <if test="water.paymentDeadLine !=null and water.paymentDeadLine!='' ">paymentDeadLine =#{water.paymentDeadLine} and</if>
+                <if test="water.isBilling !=null and water.isBilling!='' ">isBilling =#{water.isBilling} and</if>
+                <if test="water.latePaymentState !=null and water.latePaymentState!='' ">latePaymentState =#{water.latePaymentState} and</if>
+                <if test="water.meterReader !=null and water.meterReader!='' ">meterReader =#{water.meterReader} and</if>
+                <if test="water.reporter !=null and water.reporter!='' ">reporter =#{water.reporter} and</if>
+                <if test="water.certificate !=null and water.certificate!='' ">certificate =#{water.certificate} and</if>
+                1=1
+            </where>
+        order by id desc
+    </select>
+    <update id="updateWaterFee" parameterType="com.zjgsu.shuidiansys.pojo.WaterFeeInfo">
+        update water_fee_info
+        <set>
+            <if test="waterMeterId != null and waterMeterId!=''">waterMeterId=#{waterMeterId},</if>
+            <if test="meterReadTime != null and meterReadTime!=''">meterReadTime=#{meterReadTime},</if>
+            <if test="userId != null and userId!=''">userId=#{userId},</if>
+            <if test="previousDegree != null">previousDegree =#{previousDegree},</if>
+            <if test="thisDegree != null">thisDegree =#{thisDegree},</if>
+            <if test="thisUsing != null">thisUsing =#{thisUsing},</if>
+            <if test="thisRelief !=null">thisRelief =#{thisRelief},</if>
+            <if test="thisDue!=null">thisDue =#{thisDue},</if>
+            <if test="thisPaid!=null">thisPaid =#{thisPaid},</if>
+            <if test="paymentState !=null and paymentState!='' ">paymentState =#{paymentState},</if>
+            <if test="paymentTime !=null and paymentTime!='' ">paymentTime =#{paymentTime},</if>
+            <if test="paymentDeadLine !=null and paymentDeadLine!='' ">paymentDeadLine =#{paymentDeadLine},</if>
+            <if test="isBilling !=null and isBilling!='' ">isBilling =#{isBilling},</if>
+            <if test="latePayment !=null">latePayment =#{latePayment},</if>
+            <if test="latePaymentState !=null and latePaymentState!='' ">latePaymentState =#{latePaymentState},</if>
+            <if test="meterReader !=null and meterReader!='' ">meterReader =#{meterReader},</if>
+            <if test="reporter !=null and reporter!='' ">reporter =#{reporter},</if>
+            <if test="certificate !=null and certificate!='' ">certificate =#{certificate},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!-- 批量删除 -->
+    <delete id="deleteWaterFee" parameterType="java.util.List" >
+        delete from water_fee_info where id in
+        <foreach collection = "list" item="id" index="no" open="("
+                 separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectOneById" resultType="com.zjgsu.shuidiansys.pojo.UserInfo" parameterType="string">
+        select * from user_info where meterId = #{waterId}
+    </select>
+
+    <select id="selectOneByIds" resultType="com.zjgsu.shuidiansys.pojo.UserInfo">
+        select * from user_info where meterId = #{1} and userId = #{0}
+    </select>
+
+    <insert id="insert" parameterType="com.zjgsu.shuidiansys.pojo.WaterInfo">
+		insert into water_fee_info( waterMeterId, userId, meterReadTime,previousDegree,thisDegree,thisUsing,thisRelief,thisDue,thisPaid,paymentState,paymentDeadLine,paymentTime,isBilling,latePayment,latePaymentState,meterReader,reporter,certificate)
+               values(#{waterMeterId}, #{userId},#{meterReadTime}, #{previousDegree},#{thisDegree}, #{thisUsing},#{thisRelief},#{thisDue},#{thisPaid},#{paymentState},#{paymentDeadLine},#{paymentTime},#{isBilling},#{latePayment},#{latePaymentState},#{meterReader},#{reporter},#{certificate})
+	</insert>
+
+    <select id="selectByIds" resultType="com.zjgsu.shuidiansys.pojo.WaterFeeInfo">
+        SELECT * FROM water_fee_info
+        WHERE id in
+        <foreach collection="Ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="selectById" resultType="com.zjgsu.shuidiansys.pojo.WaterFeeInfo">
+        select * from water_fee_info where id=#{id}
+    </select>
+
+    <select id="selectOneByDateLike" resultType="com.zjgsu.shuidiansys.pojo.WaterFeeInfo">
+        select * from water_fee_info
+        where strcmp(date_format(meterReadTime,'%Y-%m'),#{date}) = 0 and waterMeterId=#{meterId}
+        order by meterReadTime asc
+        limit 1
+    </select>
+
+    <select id="selectByDateLike" resultType="com.zjgsu.shuidiansys.pojo.WaterFeeInfo">
+        select * from water_fee_info
+        where strcmp(date_format(meterReadTime,'%Y'),#{date}) = 0
+        order by meterReadTime asc
+    </select>
+</mapper>

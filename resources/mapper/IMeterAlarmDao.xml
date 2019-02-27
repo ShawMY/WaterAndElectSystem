@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.zjgsu.shuidiansys.dao.IMeterAlarmDao">
+
+    <select id="countAllUnhandled" resultType="int">
+		select count(*) from meter_alarm where state='未处理'
+	</select>
+
+    <select id="getAllUnhandled" resultType="com.zjgsu.shuidiansys.pojo.MeterAlarm">
+		select * from meter_alarm where state='未处理'
+	</select>
+
+    <insert id="insert" parameterType="com.zjgsu.shuidiansys.pojo.MeterAlarm">
+		insert into meter_alarm( meterId,msg,date,state)
+               values(#{meterId},#{msg}, #{date},#{state})
+	</insert>
+
+    <update id="update" parameterType="com.zjgsu.shuidiansys.pojo.UserAccount">
+        update meter_alarm
+        <set>
+            <if test="meterId != null and meterId!=''">meterId=#{meterId},</if>
+            <if test="msg != null and msg!=''">msg=#{msg},</if>
+            <if test="date != null and date!=''">date=#{date},</if>
+            <if test="state != null and state!=''">state=#{state},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+
+</mapper>

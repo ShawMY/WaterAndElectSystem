@@ -1,0 +1,801 @@
+﻿<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="Bookmark" href="favicon1.ico">
+		<link rel="Shortcut Icon" href="favicon1.ico" />
+		<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+		<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+		<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+		<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script><![endif]-->
+		<!--/meta 作为公共模版分离出去-->
+
+		<title>水表抄表 - 抄表管理 - 浙江工商大学水电管理系统</title>
+	</head>
+
+	<body>
+		<!--_header 作为公共模版分离出去-->
+		<div class="_header"></div>
+		<!--/_header 作为公共模版分离出去-->
+
+		<!--_menu 作为公共模版分离出去-->
+		<div class="_menu"></div>
+		<!--/_menu 作为公共模版分离出去-->
+
+		<section class="Hui-article-box">
+			<div class="Hui-article">
+				<article class="cl pd-5">
+					<div class="cl">
+						<form class="form form-horizontal" id="form-member-add">
+							<div class="col-sm-12">
+								<div class="col-sm-5 pl-0 pr-0">
+									<label class="form-label col-xs-3 col-sm-3 pr-0">抄表日期：</label>
+									<div class="formControls col-xs-3 col-sm-3 pl-0 pr-0">
+										<input type="text" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'recordTime2\')||\'%y-%M-%d\'}'})" id="recordTime1" name="recordTime1" class="input-text Wdate" style="width:100%;">
+									</div>
+									<div class="formControls col-xs-1 col-sm-1 pl-0 pr-0 text-c">
+										——
+									</div>
+									<div class="formControls col-xs-3 col-sm-3 pl-0 pr-0">
+										<input type="text" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'recordTime1\')}',maxDate:'%y-%M-%d'})" id="recordTime2" name="recordTime2" class="input-text Wdate" style="width:100%;">
+									</div>
+								</div>
+								<div class="col-sm-5 pl-0 pr-0">
+									<label class="form-label col-xs-2 col-sm-2 pl-0 pr-0">安装地址：</label>
+									<div class="formControls col-xs-2 col-sm-2 pl-0 pr-1">
+										<span class="select-box">
+											<select class="select" size="1" name="installAddress1" id="search-installAddress1">
+												
+											</select>
+										</span>
+									</div>
+									<div class="formControls col-xs-2 col-sm-2 pl-0 pr-1">
+										<span class="select-box">
+											<select class="select" size="1" name="installAddress2" id="search-installAddress2">
+												
+											</select>
+										</span>
+									</div>
+									<div class="formControls col-xs-2 col-sm-2 pl-0 pr-1">
+										<span class="select-box">
+											<select class="select" size="1" name="installAddress3" id="search-installAddress3">
+												
+											</select>
+										</span>
+									</div>
+									<div class="formControls col-xs-3 col-sm-3 pl-0 pr-1">
+										<input type="text" class="input-text" value="" placeholder="" id="search-installAddress4" name="installAddress4">
+									</div>
+								</div>
+								<div class="col-sm-2 pl-0 pr-0 text-c">
+									<button class="btn btn-success radius" type="button" id="btn-search" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="cl pd-5 bg-1 bk-gray mt-20" id="btn-area">
+						<span class="l" id="btn-export"><a href="javascript:;" onclick="exportData()" class="btn btn-primary radius">导出抄表清单</a> </span>
+						<span class="l ml-10" id="btn-del"> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> </span>
+					</div>
+					<div class="mt-20">
+						<table id="example1" class="table table-border table-bordered table-hover table-bg table-sort" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th><input type="checkbox" name="keeperUserGroup-checkable" value="" id="allChecked"></th>
+									<th>序号</th>
+									<th>水表编号</th>
+									<th>抄表编号</th>
+									<th>安装地址</th>
+									<th>上期读数</th>
+									<th>最近抄表日期</th>
+									<th>抄表员</th>
+									<th width="150">操作</th>
+								</tr>
+							</thead>
+						</table>
+						<div id="paging" class="text-c mt-30"></div>
+					</div>
+				</article>
+				<div id="modal-demo" style="top: 100px!important;" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content radius">
+							<div class="modal-header">
+								<h3 class="modal-title">提示</h3>
+								<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+							</div>
+							<div class="modal-body">
+								<p>您没有修改权限，请导出信息后给领导签字确认。</p>
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-primary" type="button" onclick="exportChg()">导出</button>
+								<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="modal-demo1" style="top: 100px!important;" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content radius">
+							<div class="modal-header">
+								<h3 class="modal-title">提示</h3>
+								<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+							</div>
+							<div class="modal-body">
+								<p>您没有删除权限，请导出信息后给领导签字确认。</p>
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-primary" type="button" onclick="exportDel()">导出</button>
+								<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!--_footer 作为公共模版分离出去-->
+		<script type="text/javascript" src="ip.js"></script>
+		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+		<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script>
+		<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.page.js"></script>
+		<!--/_footer /作为公共模版分离出去-->
+
+		<!--请在下方写此页面业务相关的脚本-->
+		<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>
+		<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
+		<script type="text/javascript">
+			/*公共数据*/
+//			var ip = 'http://101.132.45.14:8080/shuidiansystem';
+			var getUrl = '/api/water/copy';
+			var delUrl = '/api/water/copy';
+			var getItemUrl = '/api/address/level/item';
+			//表格数据
+			var dataSet = [],
+				checkedSet = [];
+			var role = 0;
+
+			$(function() {
+				/*导入公共组件*/
+				$("._header").load("_header.html");
+				$("._menu").load("_menu.html");
+				isLogin();
+				setRole();
+				getList(1);
+				setFirst();
+			});
+			
+			function isLogin() {
+				if($.cookie("isLogin") == 'null') {
+					window.location.href="loginTip.html";
+				}
+			}
+
+			function setRole() {
+				role = $.cookie('role');
+				role = parseInt(role);
+				switch(role) {
+					case 1:
+						break;
+					case 2:
+						$("#btn-export").addClass("hidden");
+						$("#btn-del a").attr("onclick", "showModal1()");
+						break;
+					case 3:
+						break;
+					case 4:
+						break;
+					case 5:
+						$("#btn-area").addClass("hidden");
+						break;
+					case 6:
+						break;
+					case 7:
+						break;
+					default:
+						location.href("loginTip.html");
+						break;
+				}
+			}
+
+			/*填充表格*/
+			function setTable() {				/*表格数据动态渲染*/
+				var resultTable = $('#example1').DataTable({
+					data: dataSet,
+					columns: [{
+							className: "td-checkbox",
+							data: null,
+							width: '30px',
+							render: function(data, type, row, meta) {
+								var content = '<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">';
+								if(checkedSet.indexOf(data.copyCode) != -1) {
+									content += '<input type="checkbox" class="group-checkable" value="' + data.copyCode + '" checked/>';
+								}
+								else {
+									content += '<input type="checkbox" class="group-checkable" value="' + data.copyCode + '" />';
+								}
+								content += '	<span></span>';
+								content += '</label>';
+								return content;
+							}
+						}, {
+							title: "序号",
+							data: null,
+							width: "30px"
+						},
+						{
+							title: "水表编号",
+							data: "meterCode"
+						},
+						{
+							title: "抄表编号",
+							data: "copyCode"
+						},
+						{
+							title: "安装地址",
+							data: null,
+							render: function(data, type, row) {
+								var str = '';
+								if(data.installAddress1 != '') {
+									str = str + row.installAddress1;
+								}
+								if(data.installAddress2 != '') {
+									str = str + row.installAddress2;
+								}
+								if(data.installAddress3 != '') {
+									str = str + row.installAddress3;
+								}
+								if(data.installAddress4 != '') {
+									str = str + row.installAddress4;
+								}
+								if(data.installAddress5 != '') {
+									str = str + row.installAddress5;
+								}
+								if(data.installAddress6 != '') {
+									str = str + row.installAddress6;
+								}
+								return str;
+							}
+//							data: "installAddress"
+						},
+						{
+							title: "上期读数",
+							data: "previousNum"
+						},
+						{
+							title: "最近抄表日期",
+							data: "recordTime"
+						},
+						{
+							title: "抄表员",
+							data: "recordPeople"
+						},
+						{
+							title: "操作",
+							data: null,
+							width: '150px',
+							render: function(data, type, row) {
+								//data为当前列的数据
+								//type为当前列数据类型
+								//row为当前行数据
+								var rowData = JSON.stringify(row);
+								if(role == 5 || role == 2) {
+									var str = "<span class=''><a class='btn btn-primary radius inline disabled'>编辑</a>";
+								} 
+//								else if(role == 3 || role == 2) {
+//									var str = "<span class=''><a class='btn btn-primary radius inline' onclick='showModal(" + rowData + ")'>编辑</a>";
+//								} 
+								else {
+									var str = "<span class=''><a class='btn btn-primary radius inline' onclick='member_edit(" + rowData + ")'>编辑</a>";
+								}
+								return str;
+								//此处return可自己定义，传参须注意，若传字符串需加上转义字符，否则会报错ReferenceError: XXX is not defined at HTMLAnchorElement.onclick
+							}
+						}
+					],
+					aoColumnDefs: [{
+						orderable: false,
+						aTargets: [0, 1, 8]
+					}],
+					paging: false,
+					bFilter: false,
+					info: false,
+				});
+
+				/* 设置第一列 - 序列化 */
+				resultTable.on('order.dt search.dt', function() {
+					resultTable.column(1, {
+						search: 'applied',
+						order: 'applied'
+					}).nodes().each(function(cell, i) {
+						cell.innerHTML = i + 1;
+					});
+				}).draw();
+
+				/*复选框*/
+				$('#example1').on("change", ":checkbox", function() {
+					if($(this).is("[name='keeperUserGroup-checkable']")) {
+						// 全选
+						if($(this).is(':checked')) {
+							getAllCode();
+						} else {
+							cancelAllChecked();
+						}
+					} else {
+						// 一般复选
+						if($(this).is(':checked')) {
+							var index = checkedSet.indexOf($(this).val());
+							if(index == -1) {
+								checkedSet.push($(this).val());
+							}
+						} else {
+							var index = checkedSet.indexOf($(this).val());
+							if(index > -1) {
+								checkedSet.splice(index, 1);
+							}
+						}
+						console.log(checkedSet);
+					}
+				});
+
+				/*遍历-获取所有copyCode*/
+				function getAllCode() {
+					checkedSet= [];
+					$.each(dataSet, function(index, value) {
+						checkedSet.push(value.copyCode);
+					});
+				}
+
+				/*取消全选*/
+				function cancelAllChecked() {
+					checkedSet = [];
+				}
+			}
+
+			/* 根据分页获取列表信息 */
+			function getList(curr) {
+				$.ajax({
+					type: "get",
+					url: ip + getUrl,
+					data: {
+						page: curr
+					},
+					success: function(res) {
+						if(res.code == 200) {
+							dataSet = res.content.info;
+							if($('#example1').hasClass('dataTable')) {
+								var oldTable = $('#example1').dataTable();
+								oldTable.fnClearTable(); //清空一下table
+								oldTable.fnDestroy(); //还原初始化了的dataTable
+								$('#example1').empty();
+							}
+							setTable();
+							pagination(res.content.page, res.content.pageNum, 0);
+						}
+						else {
+							layer.msg(res.msg, {
+								icon: 2,
+								time: 3000
+							});
+						}
+					},
+					async: true
+				});
+			}
+
+			/*用户类别-获取*/
+			$(document).ready(function() {
+				/*公共数据*/
+//				var ip = 'http://101.132.45.14:8080/shuidiansystem';
+				var getItemUrl = '/api/user/cat/item';
+
+				$.ajax({
+					type: "get",
+					url: ip + getItemUrl,
+					async: true,
+					success: function(res) {
+						var data = res.content;
+						var str = "";
+						$.each(data, function(index, value) {
+							str += "<option value=" + value.typeCode + ">" + value.typeName + "</option>";
+						});
+						//将用户类别填充到搜索部分
+						$("#typeName").html(str);
+					}
+				});
+			});
+
+			/*用户-添加*/
+			function member_add(title, url, w, h) {
+				layer_show(title, url, w, h);
+			}
+
+			/*用户-编辑*/
+			function member_edit(data) {
+				layer.open({
+					type: 2,
+					area: ['800px', '400px'],
+					fix: false, //不固定
+					maxmin: true,
+					shade: 0.4,
+					title: '编辑',
+					content: 'watercopy-edit.html',
+					success: function(layero, index) {
+						var body = layer.getChildFrame('body', index);
+						var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+						console.log(body.html()) //得到iframe页的body内容
+						getCode1();
+						body.find("#installAddress1").html(addr1);
+						body.find("#installAddress2").html(addr2);
+						body.find("#installAddress3").html(addr3);
+						$.each(data, function(key, value) {
+							var obj = '#' + key;
+							body.find(obj).val(value);
+						});
+					},
+					end: function() {
+						location.reload();
+					}
+				});
+			}
+			
+			var addr1 = '',
+				addr2 = '',
+				addr3 = '',
+				addr4 = '',
+				addr5 = '',
+				addr6 = '';
+			var getAddrUrl = '/api/address/preLevel';
+
+			//获取所有一级编号
+			function getCode1() {
+				$.ajax({
+					type: "get",
+					url: ip + getAddrUrl,
+					data: {
+						level: "一级",
+						preCode: null
+					},
+					dataType: 'json',
+					success: function(res) {
+						if(res.code == 200) {
+							console.log("&&&");
+							console.log(res);
+							var str = '';
+							$.each(res.content, function(index, value) {
+								str = str + "<option value='" + value.name + "' name='" + value.code + "'>" + value.name + "</option>";
+							});
+							addr1 = str;
+							getCode2(res.content[0].code);
+						}
+
+					},
+					async: false
+				})
+			}
+
+			function getCode2(code) {
+				//填充二级地址
+				$.ajax({
+					type: "get",
+					url: ip + getAddrUrl,
+					data: {
+						level: "二级",
+						preCode: code
+					},
+					success: function(res) {
+						var str = "";
+						$.each(res.content, function(index, value) {
+							str = str + "<option value='" + value.name + "' name='" + value.code + "'>" + value.name + "</option>";
+						});
+						addr2=str;
+						getCode3(res.content[0].code);
+					},
+					async: false
+				});
+			}
+
+			function getCode3(code) {
+				//填充三级地址
+				$.ajax({
+					type: "get",
+					url: ip + getAddrUrl,
+					data: {
+						level: "三级",
+						preCode: code
+					},
+					success: function(res) {
+						var str = "";
+						$.each(res.content, function(index, value) {
+							str = str + "<option value='" + value.name + "' name='" + value.code + "'>" + value.name + "</option>";
+						});
+						addr3=str;
+					},
+					async: false
+				});
+			}
+
+			/*用户-查询*/
+			$("#btn-search").click(function() {
+				search(1);
+			});
+
+			function search(curr) {
+				var searchUrl = '/api/water/copy/search';
+
+				$.ajax({
+					type: "get",
+					url: ip + searchUrl,
+					data: {
+						installAddress1: $('#search-installAddress1').val(),
+						installAddress2: $('#search-installAddress2').val(),
+						installAddress3: $('#search-installAddress3').val(),
+						installAddress4: $('#search-installAddress4').val(),
+						installAddress5: '',
+						installAddress6: '',
+						recordTime1: $('#recordTime1').val(),
+						recordTime2: $('#recordTime2').val(),
+						page: curr
+					},
+					success: function(res) {
+						if(res.code == 200) {
+							dataSet = res.content.info;
+							if($('#example1').hasClass('dataTable')) {
+								var oldTable = $('#example1').dataTable();
+								oldTable.fnClearTable(); //清空一下table
+								oldTable.fnDestroy(); //还原初始化了的dataTable
+								$('#example1').empty();
+							}
+							setTable();
+							pagination(res.content.page, res.content.pageNum, 1);
+						}
+						else {
+							layer.msg(res.msg, {
+								icon: 2,
+								time: 3000
+							});
+						}
+					},
+					async: true
+				});
+			}
+
+			/*用户-删除*/
+			function member_del(data) {
+				layer.confirm('确认要删除吗？', function(index) {
+					del(data.copyCode, 0);
+				});
+			}
+
+			function del(id, type) {
+				if(type == 0) { //单个删除
+					var ids = [];
+					ids.push(id);
+				} else {
+					var ids = checkedSet;
+				}
+
+				if(ids.length < 1) {
+					layer.msg('请选择删除选项!', {
+						icon: 2,
+						time: 1000
+					});
+					return false;
+				}
+
+				var delUrl = '/api/water/copy';
+
+				$.ajax({
+					type: "delete",
+					url: ip + delUrl,
+					data: JSON.stringify({
+						ids: ids
+					}),
+					dataType: 'json',
+					contentType: 'application/json',
+					async: true,
+					success: function(res) {
+						if(res.code == 200) {
+							layer.msg(res.msg, {
+								icon: 1,
+								time: 1000
+							});
+						} else {
+							layer.msg(res.msg, {
+								icon: 2,
+								time: 1000
+							});
+						}
+
+						location.reload();
+					}
+				});
+			}
+
+			//批量删除
+			function datadel() {
+				layer.confirm('确认要删除吗？', function(index) {
+					del(null, 1);
+				});
+			}
+
+			//分页
+			function pagination(curr, sum, type) { //type表示当前的分页方式
+				laypage({
+					cont: 'paging', //容器。值支持id名、原生dom对象，jquery对象。【如该容器为】：&lt;div id="page1">&lt;/div>
+					pages: sum, //通过后台拿到的总页数
+					curr: curr, //初始化当前页
+					jump: function(e, first) { //触发分页后的回调
+						if(!first) {
+							if(type == 0) { //如果本次触发与查询无关
+								getList(e.curr);
+							} else {
+								search(e.curr);
+							}
+						}
+
+					}
+				});
+			}
+
+			function exportData() {
+				var ids = checkedSet;
+				
+				if(ids.length < 1) {
+					layer.msg('请选择导出内容!', {
+						icon: 2,
+						time: 2000
+					});
+					return false;
+				}
+				
+				var str='';
+				$.each(checkedSet, function(index, value) {
+					console.log(index);
+					if(index == 0) {
+						str = str + 'ids%5b%5d=' + value;
+					}
+					else {
+						str = str + '&ids%5b%5d=' + value;
+					}
+				});
+				console.log(str);
+				var url = ip + "/api/water/copy/export?"+str;
+				window.open(url, '_blank');
+			}
+			
+			var exportChgId='',
+				exportDelId='';
+			
+			function showModal(data) {
+				exportChgId=data.copyCode;
+				$("#modal-demo").modal("show");
+			}
+			
+			function showModal1() {
+				$("#modal-demo1").modal("show");
+			}
+			
+			function exportChg() {
+				var str='id='+exportChgId;
+				var url = ip + "/api/water/copy/chg?"+str;
+				window.open(url, '_blank');
+			}
+			
+			function exportDel() {
+				var str='';
+				$.each(checkedSet, function(index, value) {
+					console.log(index);
+					if(index == 0) {
+						str = str + 'ids%5b%5d=' + value;
+					}
+					else {
+						str = str + '&ids%5b%5d=' + value;
+					}
+				});
+				var url = ip + "/api/water/copy/del?"+str;
+				window.open(url, '_blank');
+			}
+			
+			var getAddrUrl = '/api/address/preLevel';
+
+			function setFirst() {
+				//填充一级地址
+				$.ajax({
+					type: "get",
+					url: ip + getAddrUrl,
+					data: {
+						level: "一级",
+						preCode: null
+					},
+					dataType: 'json',
+					success: function(res) {
+						console.log("&&&");
+						console.log(res);
+						var str = '<option value=""></option>';
+						$.each(res.content, function(index, value) {
+							str = str + "<option value='" + value.name + "' name='" + value.code + "'>" + value.name + "</option>";
+						});
+						$("#search-installAddress1").html(str);
+	
+						setSecond(res.content[0].code);
+					},
+					async: true
+				});
+			}
+
+			function setSecond(code) {
+				//填充二级地址
+				$.ajax({
+					type: "get",
+					url: ip + getAddrUrl,
+					data: {
+						level: "二级",
+						preCode: code
+					},
+					success: function(res) {
+						var str = "<option value=''></option>";
+						$.each(res.content, function(index, value) {
+							str = str + "<option value='" + value.name + "' name='" + value.code + "'>" + value.name + "</option>";
+						});
+						$("#search-installAddress2").html(str);
+						setThird(res.content[0].code);
+					},
+					async: true
+				});
+			}
+
+			function setThird(code) {
+				//填充三级地址
+				$.ajax({
+					type: "get",
+					url: ip + getAddrUrl,
+					data: {
+						level: "三级",
+						preCode: code
+					},
+					success: function(res) {
+						var str = "<option value=''></option>";
+						$.each(res.content, function(index, value) {
+							str = str + "<option value='" + value.name + "' name='" + value.code + "'>" + value.name + "</option>";
+						});
+						$("#search-installAddress3").html(str);
+						$("#search-installAddress4").attr("disabled", false);
+					},
+					async: true
+				});
+			}
+
+			$("#search-installAddress1").on('change', function() {
+				setSecond($("#search-installAddress1 option:checked").attr("name"));
+			});
+
+			$("#search-installAddress2").on('change', function() {
+				setThird($("#search-installAddress2 option:checked").attr("name"));
+			});
+
+			$("#search-installAddress3").on('change', function() {
+				if($(this).val() != "") {
+					$("#search-installAddress4").attr("disabled", false);
+				}
+			});
+		</script>
+		<!--/请在上方写此页面业务相关的脚本-->
+	</body>
+
+</html>

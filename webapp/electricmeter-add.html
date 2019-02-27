@@ -1,0 +1,474 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="Bookmark" href="favicon.ico">
+		<link rel="Shortcut Icon" href="favicon.ico" />
+		<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+		<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+		<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+		<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script><![endif]-->
+		<!--/meta 作为公共模版分离出去-->
+
+		<title>添加用户 - H-ui.admin v3.0</title>
+		<meta name="keywords" content="H-ui.admin v3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
+		<meta name="description" content="H-ui.admin v3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+	</head>
+
+	<body>
+		<article class="cl pd-20">
+			<form class="form form-horizontal" id="form-member-add">
+				<div class="row cl">
+					<label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>级别：</label>
+					<div class="formControls col-xs-9 col-sm-9">
+						<span class="select-box">
+							<select class="select" size="1" name="level" id="level">
+								<option value="一级" selected>一级</option>
+								<option value="二级">二级</option>
+								<option value="三级">三级</option>
+								<option value="四级">四级</option>
+							</select>
+						</span>
+					</div>
+				</div>
+				<div class="row cl" id="element-meterCode">
+					<label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>电表编号：</label>
+					<div class="formControls col-xs-9 col-sm-9">
+						<input type="text" class="input-text" value="" placeholder="" id="meterCode" name="meterCode">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>安装地址：</label>
+					<div class="formControls col-xs-2 col-sm-2">
+						<span class="select-box">
+								<select class="select" size="1" name="firstAddress" id="firstAddress">
+									<!--<option value="0" selected>下沙教学区</option>
+									<option value="1">下沙钱江湾</option>
+									<option value="2">下沙金沙港</option>
+									<option value="3">下沙玉屏洲</option>
+									<option value="4">教工路校区</option>-->
+								</select>
+							</span>
+					</div>
+					<div class="formControls col-xs-2 col-sm-2">
+						<span class="select-box">
+							<select class="select" size="1" name="secondAddress" id="secondAddress">
+								
+							</select>
+						</span>
+					</div>
+					<div class="formControls col-xs-2 col-sm-2">
+						<span class="select-box">
+							<select class="select" size="1" name="thirdAddress" id="thirdAddress">
+								
+							</select>
+						</span>
+					</div>
+					<div class="formControls col-xs-3 col-sm-3">
+						<input type="text" class="input-text" value="" placeholder="" id="forthAddress" name="forthAddress" disabled="disabled">
+					</div>
+				</div>
+				<div class="row cl hidden" id="element-preCode">
+					<label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>上级编号：</label>
+					<div class="formControls col-xs-9 col-sm-9">
+						<span class="select-box">
+							<select class="select" size="1" name="preCode" id="preCode">
+								<option value="1" selected>12345</option>
+							</select>
+						</span>
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>收费方：</label>
+					<div class="formControls col-xs-3 col-sm-3">
+						<span class="select-box">
+							<select class="select" size="1" name="chargeAccount" id="chargeAccount">
+								<option value="学校" selected>学校</option>
+								<option value="后勤">后勤</option>
+							</select>
+						</span>
+					</div>
+					<label class="form-label col-xs-2 col-sm-2 col-sm-offset-1"><span class="c-red">*</span>应收方：</label>
+					<div class="formControls col-xs-3 col-sm-3">
+						<span class="select-box">
+							<select class="select" size="1" name="receivableAccount" id="receivableAccount">
+								<option value="学校" selected>学校</option>
+								<option value="后勤">后勤</option>
+							</select>
+						</span>
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>安装时间：</label>
+					<div class="formControls col-xs-3 col-sm-3">
+						<input type="text" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'uninstallTime\')||\'%y-%M-%d\'}'})" id="installTime" name="installTime" class="input-text Wdate" style="width:100%;">
+					</div>
+					<label class="form-label col-xs-2 col-sm-2 col-sm-offset-1"><span class="c-red">*</span>拆除时间：</label>
+					<div class="formControls col-xs-3 col-sm-3">
+						<input type="text" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'installTime\')}',maxDate:'%y-%M-%d'})" id="uninstallTime" name="uninstallTime" class="input-text Wdate" style="width:100%;">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>状态：</label>
+					<div class="formControls col-xs-3 col-sm-3">
+						<span class="select-box">
+							<select class="select" size="1" name="status" id="status">
+								<option value="启用" selected>启用</option>
+								<option value="停用">停用</option>
+								<option value="废弃">废弃</option>
+							</select>
+						</span>
+					</div>
+					<label class="form-label col-xs-2 col-sm-2 col-sm-offset-1"><span class="c-red">*</span>电表底度：</label>
+					<div class="formControls col-xs-3 col-sm-3">
+						<input type="text" class="input-text" value="" placeholder="" id="originScale" name="originScale">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>最大刻度：</label>
+					<div class="formControls col-xs-3 col-sm-3">
+						<span class="select-box">
+							<select class="select" size="1" name="maxScale	" id="maxScale">
+								<option value="999" selected>三位</option>
+								<option value="9999">四位</option>
+								<option value="99999">五位</option>
+								<option value="999999">六位</option>
+							</select>
+						</span>
+					</div>
+					<label class="form-label col-xs-2 col-sm-2 col-sm-offset-1"><span class="c-red">*</span>翻表次数：</label>
+					<div class="formControls col-xs-3 col-sm-3">
+						<span class="select-box">
+							<select class="select" size="1" name="transCount" id="transCount">
+								<option value="0" selected>0</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+							</select>
+						</span>
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>电表类别：</label>
+					<div class="formControls col-xs-3 col-sm-3">
+						<span class="select-box">
+							<select class="select" size="1" name="userCat" id="userCat">
+								
+							</select>
+						</span>
+					</div>
+					<label class="form-label col-xs-2 col-sm-2 col-sm-offset-1"><span class="c-red">*</span>倍率：</label>
+					<div class="formControls col-xs-3 col-sm-3">
+						<input type="text" class="input-text" value="" placeholder="" id="ratio" name="ratio">
+					</div>
+				</div>
+				<div class="row cl">
+					<div class="col-xs-10 col-sm-10 col-xs-offset-1 col-sm-offset-1">
+						<input class="btn btn-primary radius btn-block" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+					</div>
+				</div>
+			</form>
+		</article>
+
+		<!--_footer 作为公共模版分离出去-->
+		<script type="text/javascript" src="ip.js"></script>
+		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+		<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script>
+		<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.page.js"></script>
+		<!--/_footer /作为公共模版分离出去-->
+
+		<!--请在下方写此页面业务相关的脚本-->
+		<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>
+		<script type="text/javascript" src="lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+		<script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script>
+		<script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script>
+		<script type="text/javascript">
+			$(function() {
+//				var ip = 'http://101.132.45.14:8080/shuidiansystem';
+				var addUrl = '/api/electric/meter/add',
+					getAddrUrl = '/api/address/preLevel';
+
+				$('.skin-minimal input').iCheck({
+					checkboxClass: 'icheckbox-blue',
+					radioClass: 'iradio-blue',
+					increaseArea: '20%'
+				});
+
+				$("#form-member-add").validate({
+					rules: {
+						level: {
+							required: true
+						},
+						firstAddress: {
+							required: true
+						},
+						secondAddress: {
+							required: true
+						},
+						thirdAddress: {
+							required: true
+						},
+						//						forthAddress: {
+						//							required: true
+						//						},
+						preCode: {
+							required: true
+						},
+						chargeAccount: {
+							required: true
+						},
+						receivableAccount: {
+							required: true
+						},
+						installTime: {
+							required: true
+						},
+						uninstallTime: {
+							required: true
+						},
+						status: {
+							required: true
+						},
+						originScale: {
+							required: true
+						},
+						ratio: {
+							required: true
+						},
+						maxScale: {
+							required: true
+						},
+						transCount: {
+							required: true
+						}
+					},
+					onkeyup: false,
+					focusCleanup: true,
+					success: "valid",
+					submitHandler: function(form) {
+						submit();
+
+						var index = parent.layer.getFrameIndex(window.name);
+						parent.layer.close(index);
+					}
+				});
+
+				function submit() {
+					$.ajax({
+						type: "post",
+						url: ip + addUrl,
+						data: JSON.stringify({
+							level: $('#level').val(),
+							firstAddress: $('#firstAddress').val(),
+							secondAddress: $('#secondAddress').val(),
+							thirdAddress: $('#thirdAddress').val(),
+							forthAddress: $("#forthAddress").val(),
+							fifthAddress: null,
+							sixthAddress: null,
+							preCode: $('#preCode').val(),
+							chargeAccount: $('#chargeAccount').val(),
+							receivableAccount: $('#receivableAccount').val(),
+							installTime: $('#installTime').val(),
+							uninstallTime: $('#uninstallTime').val(),
+							status: $('#status').val(),
+							originScale: $('#originScale').val(),
+							radius: $('#radius').val(),
+							ratio: $('#ratio').val(),
+							maxScale: $('#maxScale').val(),
+							transCount: $('#transCount').val(),
+							userCat: $("#userCat").val(),
+							meterCode: $("#meterCode").val()
+							
+//							meterCode: "10003338855g3888888307",
+//							chargeAccount: "学校",
+//							receivableAccount: "学校",
+//							installTime: "2018-09-13",
+//							uninstallTime: "2018-09-14",
+//							originScale: "4",
+//							maxScale: "1",
+//							level: "一级",
+//							transCount: "0",
+//							ratio: "4",
+//							status: "启用",
+//							radius: "45",
+//							firstAddress: "下沙",
+//							secondAddress: "钱江湾",
+//							thirdAddress: "1号楼",
+//							userCat: "学校"
+						}),
+						contentType: 'application/json',
+						dataType: 'json',
+						success: function(res) {
+							console.log("3333333333333");console.log(res);
+							if(res.code == 200) {
+								layer.msg(res.msg, {
+									icon: 1,
+									time: 1000
+								});
+							} else {
+								layer.msg(res.msg, {
+									icon: 2,
+									time: 1000
+								});
+							}
+						},
+						async: false
+					});
+				}
+
+				//控制"上级编号"是否显示
+				$("#level").on('change', function() {
+					if($(this).val() != '一级') {
+						$("#element-preCode").removeClass("hidden");
+						if(!$("#element-meterCode").hasClass("hidden")) {
+							$("#element-meterCode").addClass("hidden");
+						}
+						getCode1($(this).val());
+					} else {
+						if(!$("#element-preCode").hasClass("hidden")) {
+							$("#element-preCode").addClass("hidden");
+						}
+						$("#element-meterCode").removeClass("hidden");
+					}
+				});
+
+				//获取所有上级编号
+				function getCode1(level) {
+					$.ajax({
+						type: "get",
+						url: ip + '/api/address/preLevel',
+						data: {
+							level: level,
+							preCode: null
+						},
+						dataType: 'json',
+						success: function(res) {
+							if(res.code == 200) {
+								var str = '';
+								$.each(res.content, function(index, value) {
+									str = str + "<option value='" + value.name + "' name='" + value.code + "'>" + value.code + "</option>";
+								});
+								$("#preCode").html(str);
+							}
+								
+						},
+						async: true
+					})
+				}
+
+				//获取所有用户类别
+				var getItemUrl = '/api/user/cat/item';
+				$.ajax({
+					type: "get",
+					url: ip + getItemUrl,
+					async: true,
+					success: function(res) {
+						var data = res.content;
+						var str = "";
+						$.each(data, function(index, value) {
+							str += "<option value=" + value.typeName + ">" + value.typeName + "</option>";
+						});
+						//将用户类别填充到搜索部分
+						$("#userCat").html(str);
+					}
+				});
+
+				//填充一级地址
+				$.ajax({
+					type: "get",
+					url: ip + getAddrUrl,
+					data: {
+						level: "一级",
+						preCode: null
+					},
+					dataType: 'json',
+					success: function(res) {
+						console.log("&&&");
+						console.log(res);
+						var str = '';
+						$.each(res.content, function(index, value) {
+							str = str + "<option value='" + value.name + "' name='" + value.code + "'>" + value.name + "</option>";
+						});
+						$("#firstAddress").html(str);
+
+						setSecond(res.content[0].code);
+					},
+					async: true
+				});
+
+				function setSecond(code) {
+					//填充二级地址
+					$.ajax({
+						type: "get",
+						url: ip + getAddrUrl,
+						data: {
+							level: "二级",
+							preCode: code
+						},
+						success: function(res) {
+							var str = "";
+							$.each(res.content, function(index, value) {
+								str = str + "<option value='" + value.name + "' name='" + value.code + "'>" + value.name + "</option>";
+							});
+							$("#secondAddress").html(str);
+							setThird(res.content[0].code);
+						},
+						async: true
+					});
+				}
+
+				function setThird(code) {
+					//填充三级地址
+					$.ajax({
+						type: "get",
+						url: ip + getAddrUrl,
+						data: {
+							level: "三级",
+							preCode: code
+						},
+						success: function(res) {
+							var str = "";
+							$.each(res.content, function(index, value) {
+								str = str + "<option value='" + value.name + "' name='" + value.code + "'>" + value.name + "</option>";
+							});
+							$("#thirdAddress").html(str);
+							$("#forthAddress").attr("disabled", false);
+						},
+						async: true
+					});
+				}
+				
+				$("#firstAddress").on('change', function() {
+					setSecond($("#firstAddress option:checked").attr("name"));
+				});
+
+				$("#secondAddress").on('change', function() {
+					setThird($("#secondAddress option:checked").attr("name"));
+				});
+
+				$("#thirdAddress").on('change', function() {
+					if($(this).val() != "") {
+						$("#forthAddress").attr("disabled", false);
+					}
+				});
+
+			});
+		</script>
+		<!--/请在上方写此页面业务相关的脚本-->
+	</body>
+
+</html>

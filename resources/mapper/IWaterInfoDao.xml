@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.zjgsu.shuidiansys.dao.IWaterInfoDao">
+
+    <select id="getRowCountByPage" resultType="int">
+		select count(*) from water_info
+	</select>
+
+    <select id="getRowCountByQuery" resultType="int" parameterType="com.zjgsu.shuidiansys.pojo.WaterFeeInfo">
+        select count(*) from water_info
+        <where>
+            <if test="waterMeterId != null and waterMeterId!=''">waterMeterId=#{waterMeterId} and</if>
+            <if test="level != null and level!=''">level=#{level} and</if>
+            <if test="superiorId != null and superiorId!=''">superiorId =#{superiorId} and</if>
+            <if test="charger != null and charger!=''">charger =#{charger} and</if>
+            <if test="receivableParty != null and receivableParty!=''">receivableParty =#{receivableParty} and</if>
+            <if test="installTime !=null">installTime =#{installTime}and</if>
+            <if test="scrappedTime!=null">scrappedTime =#{scrappedTime} and</if>
+            <if test="firstAddress !=null and firstAddress!='' ">firstAddress =#{firstAddress} and</if>
+            <if test="secondAddress !=null and secondAddress!='' ">secondAddress =#{secondAddress} and</if>
+            <if test="thirdAddress !=null and thirdAddress!='' ">thirdAddress =#{thirdAddress} and</if>
+            <if test="fourthAddress !=null and fourthAddress!='' ">fourthAddress =#{fourthAddress} and</if>
+            <if test="fifthAddress !=null and fifthAddress!='' ">fifthAddress =#{fifthAddress} and</if>
+            <if test="sixthAddress !=null and sixthAddress!='' ">sixthAddress =#{sixthAddress} and</if>
+            <if test="meterBottom !=null and meterBottom!=0 ">meterBottom =#{meterBottom} and</if>
+            <if test="finalDegree !=null and finalDegree!=0 ">finalDegree =#{finalDegree} and</if>
+            <if test="maxDegree !=null and maxDegree!=0 ">maxDegree =#{maxDegree} and</if>
+            <if test="flipTime !=null and flipTime!=0 ">flipTime =#{flipTime} and</if>
+            <if test="pipeSize !=null and pipeSize!=0 ">pipeSize =#{pipeSize} and</if>
+            <if test="magnification !=null and magnification!=0 ">magnification =#{magnification} and</if>
+            <if test="state !=null and state!='' ">state =#{state} and</if>
+            1=1
+        </where>
+    </select>
+
+    <select id="selectByParams" resultType="com.zjgsu.shuidiansys.pojo.WaterInfo" parameterType="map">
+		select * from water_info
+		order by waterMeterId desc
+		limit ${offset}, ${size}
+	</select>
+
+    <select id="selectByQuery" resultType="com.zjgsu.shuidiansys.pojo.WaterInfo" parameterType="map">
+        select * from water_info
+        <where>
+            <if test="water.waterMeterId != null and water.waterMeterId!=''">waterMeterId=#{water.waterMeterId} and</if>
+            <if test="water.level != null and water.level!=''">level=#{water.level} and</if>
+            <if test="water.superiorId != null and water.superiorId!=''">superiorId =#{water.superiorId} and</if>
+            <if test="water.charger != null and water.charger!=''">charger =#{water.charger} and</if>
+            <if test="water.receivableParty != null and water.receivableParty!=''">receivableParty =#{water.receivableParty} and</if>
+            <if test="water.installTime !=null">installTime =#{water.installTime}and</if>
+            <if test="water.scrappedTime!=null">scrappedTime =#{water.scrappedTime} and</if>
+            <if test="water.firstAddress !=null and water.firstAddress!='' ">firstAddress =#{water.firstAddress} and</if>
+            <if test="water.secondAddress !=null and water.secondAddress!='' ">secondAddress =#{water.secondAddress} and</if>
+            <if test="water.thirdAddress !=null and water.thirdAddress!='' ">thirdAddress =#{water.thirdAddress} and</if>
+            <if test="water.fourthAddress !=null and water.fourthAddress!='' ">fourthAddress =#{water.fourthAddress} and</if>
+            <if test="water.fifthAddress !=null and water.fifthAddress!='' ">fifthAddress =#{water.fifthAddress} and</if>
+            <if test="water.sixthAddress !=null and water.sixthAddress!='' ">sixthAddress =#{water.sixthAddress} and</if>
+            <if test="water.meterBottom !=null and water.meterBottom!=0 ">meterBottom =#{water.meterBottom} and</if>
+            <if test="water.finalDegree !=null and water.finalDegree!=0 ">finalDegree =#{water.finalDegree} and</if>
+            <if test="water.maxDegree !=null and water.maxDegree!=0 ">maxDegree =#{water.maxDegree} and</if>
+            <if test="water.flipTime !=null and water.flipTime!=0 ">flipTime =#{water.flipTime} and</if>
+            <if test="water.pipeSize !=null and water.pipeSize!=0 ">pipeSize =#{water.pipeSize} and</if>
+            <if test="water.magnification !=null and water.magnification!=0 ">magnification =#{water.magnification} and</if>
+            <if test="water.state !=null and water.state!='' ">state =#{water.state} and</if>
+            1=1
+        </where>
+        order by waterMeterId desc
+        limit ${offset}, ${size}
+    </select>
+    <update id="updateWaterInfo" parameterType="com.zjgsu.shuidiansys.pojo.WaterInfo">
+        update water_info
+        <set>
+            <if test="level != null and level!=''">level=#{level},</if>
+            <if test="superiorId != null and superiorId!=''">superiorId =#{superiorId},</if>
+            <if test="charger != null and charger!=''">charger =#{charger},</if>
+            <if test="receivableParty != null and receivableParty!=''">receivableParty =#{receivableParty},</if>
+            <if test="installTime !=null">installTime =#{installTime},</if>
+            <if test="scrappedTime!=null">scrappedTime =#{scrappedTime},</if>
+            <if test="firstAddress !=null and firstAddress!='' ">firstAddress =#{firstAddress},</if>
+            <if test="secondAddress !=null and secondAddress!='' ">secondAddress =#{secondAddress},</if>
+            <if test="thirdAddress !=null and thirdAddress!='' ">thirdAddress =#{thirdAddress},</if>
+            <if test="fourthAddress !=null and fourthAddress!='' ">fourthAddress =#{fourthAddress},</if>
+            <if test="fifthAddress !=null and fifthAddress!='' ">fifthAddress =#{fifthAddress},</if>
+            <if test="sixthAddress !=null and sixthAddress!='' ">sixthAddress =#{sixthAddress},</if>
+            <if test="meterBottom !=null and meterBottom!=0 ">meterBottom =#{meterBottom},</if>
+            <if test="finalDegree !=null and finalDegree!=0 ">finalDegree =#{finalDegree},</if>
+            <if test="maxDegree !=null and maxDegree!=0 ">maxDegree =#{maxDegree},</if>
+            <if test="flipTime !=null and flipTime!=0 ">flipTime =#{flipTime},</if>
+            <if test="pipeSize !=null and pipeSize!=0 ">pipeSize =#{pipeSize},</if>
+            <if test="magnification !=null and magnification!=0 ">magnification =#{magnification},</if>
+            <if test="state !=null and state!='' ">state =#{state},</if>
+        </set>
+        where waterMeterId=#{waterMeterId}
+    </update>
+
+    <!-- 批量删除 -->
+    <delete id="deleteWaterInfo" parameterType="java.util.List" >
+        delete from water_info where waterMeterId in
+        <foreach collection = "list" item="id" index="no" open="("
+                 separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectLikeInfo" resultType="com.zjgsu.shuidiansys.pojo.WaterInfo" parameterType="string">
+		select * from water_info
+		where waterMeterId like #{id}
+		order by waterMeterId desc
+		limit 1
+	</select>
+
+    <select id="selectByLevel" resultType="com.zjgsu.shuidiansys.pojo.WaterInfo" parameterType="string">
+		select * from water_info
+		where level = #{level}
+	</select>
+
+    <insert id="addWaterInfo" parameterType="com.zjgsu.shuidiansys.pojo.WaterInfo">
+		insert into water_info( waterMeterId, level, superiorId,charger,receivableParty,installTime,firstAddress,secondAddress,thirdAddress,fourthAddress,fifthAddress,sixthAddress,meterBottom,maxDegree,flipTime,pipeSize,magnification,state)
+               values(#{waterMeterId}, #{level},#{superiorId}, #{charger}, #{receivableParty},#{installTime},#{firstAddress},#{secondAddress},#{thirdAddress},#{fourthAddress},#{fifthAddress},#{sixthAddress},#{meterBottom},#{maxDegree},#{flipTime},#{pipeSize},#{magnification},#{state})
+	</insert>
+
+    <select id="selectByAddr" resultType="com.zjgsu.shuidiansys.pojo.WaterInfo" >
+		select * from water_info
+		where firstAddress = #{0} and secondAddress=#{1} and ISNULL(thirdAddress)
+	</select>
+
+    <select id="selectAllByQuery" resultType="com.zjgsu.shuidiansys.pojo.WaterInfo" >
+		select * from water_info
+        <where>
+            <if test="waterMeterId != null and waterMeterId!=''">waterMeterId=#{waterMeterId} and</if>
+            <if test="level != null and level!=''">level=#{level} and</if>
+            <if test="superiorId != null and superiorId!=''">superiorId =#{superiorId} and</if>
+            <if test="charger != null and charger!=''">charger =#{charger} and</if>
+            <if test="receivableParty != null and receivableParty!=''">receivableParty =#{receivableParty} and</if>
+            <if test="installTime !=null">installTime =#{installTime}and</if>
+            <if test="scrappedTime!=null">scrappedTime =#{scrappedTime} and</if>
+            <if test="firstAddress !=null and firstAddress!='' ">firstAddress =#{firstAddress} and</if>
+            <if test="secondAddress !=null and secondAddress!='' ">secondAddress =#{secondAddress} and</if>
+            <if test="thirdAddress !=null and thirdAddress!='' ">thirdAddress =#{thirdAddress} and</if>
+            <if test="fourthAddress !=null and fourthAddress!='' ">fourthAddress =#{fourthAddress} and</if>
+            <if test="fifthAddress !=null and fifthAddress!='' ">fifthAddress =#{fifthAddress} and</if>
+            <if test="sixthAddress !=null and sixthAddress!='' ">sixthAddress =#{sixthAddress} and</if>
+            <if test="meterBottom !=null and meterBottom!=0 ">meterBottom =#{meterBottom} and</if>
+            <if test="finalDegree !=null and finalDegree!=0 ">finalDegree =#{finalDegree} and</if>
+            <if test="maxDegree !=null and maxDegree!=0 ">maxDegree =#{maxDegree} and</if>
+            <if test="flipTime !=null and flipTime!=0 ">flipTime =#{flipTime} and</if>
+            <if test="pipeSize !=null and pipeSize!=0 ">pipeSize =#{pipeSize} and</if>
+            <if test="magnification !=null and magnification!=0 ">magnification =#{magnification} and</if>
+            <if test="state !=null and state!='' ">state =#{state} and</if>
+            1=1
+        </where>
+	</select>
+
+    <select id="selectById" resultType="com.zjgsu.shuidiansys.pojo.WaterInfo" >
+		select * from water_info
+		where waterMeterId = #{waterId}
+	</select>
+
+    <select id="selectAll" resultType="com.zjgsu.shuidiansys.pojo.WaterInfo">
+        select * from water_info
+    </select>
+</mapper>

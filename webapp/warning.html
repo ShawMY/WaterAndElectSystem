@@ -1,0 +1,244 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="Bookmark" href="favicon.ico">
+		<link rel="Shortcut Icon" href="favicon.ico" />
+		<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+		<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+		<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+		<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script><![endif]-->
+		<!--/meta 作为公共模版分离出去-->
+
+		<title>警告- 首页 - 浙江工商大学水电管理系统</title>
+	</head>
+
+	<body>
+		<!--_header 作为公共模版分离出去-->
+		<div class="_header"></div>
+		<!--/_header 作为公共模版分离出去-->
+
+		<!--_menu 作为公共模版分离出去-->
+		<div class="_menu"></div>
+		<!--/_menu 作为公共模版分离出去-->
+
+		<section class="Hui-article-box" id="warning-1">
+			<div class="Hui-article">
+				<article class="cl pd-5">
+					<div class="mt-20">
+						<table id="example1" class="table table-border table-bordered table-hover table-bg table-sort" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>序号</th>
+									<th>表记类型</th>
+									<th>表记编号</th>
+									<th>本期用量</th>
+									<th>去年同期</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</article>
+			</div>
+		</section>
+
+		<section class="Hui-article-box hidden" id="warning-2">
+			<div class="Hui-article">
+				<article class="cl pd-5">
+					<div class="mt-20">
+						<table id="example2" class="table table-border table-bordered table-hover table-bg table-sort" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>序号</th>
+									<th>表记类型</th>
+									<th>表记编号</th>
+									<th>本期读数</th>
+									<th>上期读数</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</article>
+			</div>
+		</section>
+
+		<!--_footer 作为公共模版分离出去-->
+		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+		<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script>
+		<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.page.js"></script>
+		<!--/_footer /作为公共模版分离出去-->
+
+		<!--请在下方写此页面业务相关的脚本-->
+		<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>
+		<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
+		<script type="text/javascript">
+			/*公共数据*/
+			var ip = '';
+			var getUrl = '/api/alarm/detail';
+			//表格数据
+			var dataSet = [{
+					"type": "RuYAYSBtSq",
+					"code": "5Vnxx5KYo5",
+					"current": "xkOSQ2sbWE",
+					"previous": "u3q1dmKbUG"
+				},
+				{
+					"type": "fg2PWuFm1E",
+					"code": "ZrryJDj46b",
+					"current": "KgZIk40ngL",
+					"previous": "y8nppbU23G"
+				},
+				{
+					"type": "5Av6QAqG8x",
+					"code": "L5NOq2Jvje",
+					"current": "DtoYTCT8sS",
+					"previous": "Wua6garxzi"
+				}
+			];
+
+			var columns1 = [{
+					title: "序号",
+					width: "50px",
+					data: null
+				},
+				{
+					title: "表记类型",
+					data: "type"
+				},
+				{
+					title: "表记编号",
+					data: "code"
+				},
+				{
+					title: "本期用量",
+					data: "current"
+				},
+				{
+					title: "去年同期",
+					data: "previous"
+				}
+			];
+			var columns2 = [{
+					title: "序号",
+					width: "50px",
+					data: null
+				},
+				{
+					title: "表记类型",
+					data: "type"
+				},
+				{
+					title: "表记编号",
+					data: "code"
+				},
+				{
+					title: "本期读数",
+					data: "current"
+				},
+				{
+					title: "上期读数",
+					data: "previous"
+				}
+			];
+
+			$(function() {
+				/*导入公共组件*/
+				$("._header").load("_header.html");
+				$("._menu").load("_menu.html");
+
+				//checked
+				checkedSet = [];
+
+				var type = 1;//getType("type");
+//				getList(type);
+				
+				if(type == 1) {
+					var tablestr='#example1';
+					var columns=columns1;
+					if($("#warning-1").hasClass("hidden")) {
+						$("#warning-1").removeClass("hidden");
+					}
+					if(!$("#warning-2").hasClass("hidden")) {
+						$("#warning-2").addClass("hidden");
+					}
+				}
+				else {
+					var tablestr='#example2';
+					var columns=columns2;
+					if(!$("#warning-1").hasClass("hidden")) {
+						$("#warning-1").addClass("hidden");
+					}
+					if($("#warning-2").hasClass("hidden")) {
+						$("#warning-2").removeClass("hidden");
+					}
+				}
+
+				
+				/*表格数据动态渲染*/
+				var resultTable = $(tablestr).DataTable({
+					data: dataSet,
+					columns: columns,
+					aoColumnDefs: [{
+						orderable: false,
+						aTargets: [0]
+					}],
+					paging: false,
+					bFilter: false,
+					info: false,
+				});
+
+				/* 设置第一列 - 序列化 */
+				resultTable.on('order.dt search.dt', function() {
+					resultTable.column(0, {
+						search: 'applied',
+						order: 'applied'
+					}).nodes().each(function(cell, i) {
+						cell.innerHTML = i + 1;
+					});
+				}).draw();
+			});
+
+			/* 根据type获取列表信息 */
+			function getList(type) {
+				$.ajax({
+					type: "get",
+					url: ip + getUrl,
+					data: {
+						type: type
+					},
+					success: function(res) {
+						dataSet = res.content.info;
+						//						pagination(res.content.page, res.content.pageNum);
+					},
+					async: true
+				});
+			}
+
+			//获取url后面的参数
+			function getType(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+				var r = window.location.search.substr(1).match(reg);
+				if(r != null) return unescape(r[2]);
+				return null;
+			}
+		</script>
+		<!--/请在上方写此页面业务相关的脚本-->
+	</body>
+
+</html>

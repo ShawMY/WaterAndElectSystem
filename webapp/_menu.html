@@ -1,0 +1,242 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="Bookmark" href="favicon.ico">
+		<link rel="Shortcut Icon" href="favicon.ico" />
+		<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+		<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+		<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+		<style type="text/css">
+			.Hui-aside .menu_dropdown li.current a, 
+			.menu_dropdown li.current a:hover {
+				color: #148cf1!important;
+			}
+		</style>
+		<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script><![endif]-->
+		<!--/meta 作为公共模版分离出去-->
+
+		<title></title>
+		<meta name="keywords" content="H-ui.admin v3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
+		<meta name="description" content="H-ui.admin v3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+	</head>
+
+	<body>
+		<aside class="Hui-aside" style="top: 60px; font-size: 16px;">
+			<div class="menu_dropdown bk_2">
+				<ul id="menu-main">
+					<li id="index">
+						<a href="index.html" style="color: #333333;font-weight: normal;"><i class="Hui-iconfont" style="color: #A0A7B1;">&#xe625;</i> 首页</a>
+					</li>
+				</ul>
+				<dl id="menu-user">
+					<dt><i class="Hui-iconfont">&#xe60d;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li id="user-category">
+								<a href="user-category.html" title="用户类别管理">用户类别管理</a>
+							</li>
+							<li id="user-info">
+								<a href="user-info.html" title="用户信息管理">用户信息管理</a>
+							</li>
+						</ul>
+					</dd>
+				</dl>
+				<dl id="menu-watermeter">
+					<dt><i class="Hui-iconfont">&#xe62e;</i> 水表管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li id="water-info">
+								<a href="water-info.html" title="水表信息">水表信息</a>
+							</li>
+							<li id="water-history">
+								<a href="water-history.html" title="水表历史信息">水表历史信息</a>
+							</li>
+						</ul>
+					</dd>
+				</dl>
+				<dl id="menu-electrmeter">
+					<dt><i class="Hui-iconfont">&#xe61d;</i> 电表管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li id="electr-info">
+								<a href="electr-info.html" title="电表信息">电表信息</a>
+							</li>
+							<li id="electr-history">
+								<a href="electr-history.html" title="电表历史信息">电表历史信息</a>
+							</li>
+						</ul>
+					</dd>
+				</dl>
+				<dl id="menu-copy">
+					<dt><i class="Hui-iconfont">&#xe70c;</i> 抄表管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li id="copy-water">
+								<a href="copy-water.html" title="水表抄表">水表抄表</a>
+							</li>
+							<li id="copy-electr">
+								<a href="copy-electr.html" title="电表抄表">电表抄表</a>
+							</li>
+						</ul>
+					</dd>
+				</dl>
+				<ul id="menu-waterprice">
+					<li id="price-water">
+						<a href="price-water.html" title="水费管理" style="color: #333333;font-weight: normal;"><i class="Hui-iconfont" style="color: #A0A7B1;">&#xe6b7;</i> 水费管理</a>
+					</li>
+				</ul>
+				<ul id="menu-electrprice">
+					<li id="price-electr">
+						<a href="price-electr.html" title="电费管理" style="color: #333333;font-weight: normal;"><i class="Hui-iconfont" style="color: #A0A7B1;">&#xe63a;</i> 电费管理</a>
+					</li>
+				</ul>
+				<dl id="menu-top">
+					<dt><i class="Hui-iconfont">&#xe63c;</i> 一级表管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li id="top-water">
+								<a href="top-water.html" title="一级水表">一级水表</a>
+							</li>
+							<li id="top-electr">
+								<a href="top-electr.html" title="一级电表">一级电表</a>
+							</li>
+						</ul>
+					</dd>
+				</dl>
+				<ul id="menu-analysis">
+					<li id="mgt-analysis">
+						<a href="mgt-analysis.html" title="统计分析" style="color: #333333;font-weight: normal;"><i class="Hui-iconfont" style="color: #A0A7B1;">&#xe61a;</i> 统计分析</a>
+					</li>
+				</ul>
+				<ul id="menu-address">
+					<li id="mgt-address">
+						<a href="mgt-address.html" title="地址管理" style="color: #333333;font-weight: normal;"><i class="Hui-iconfont" style="color: #A0A7B1;">&#xe6c9;</i> 地址管理</a>
+					</li>
+				</ul>
+				<ul id="menu-account">
+					<li id="mgt-account">
+						<a href="mgt-account.html" title="账户管理" style="color: #333333;font-weight: normal;"><i class="Hui-iconfont" style="color: #A0A7B1;">&#xe602;</i> 账户管理</a>
+					</li>
+				</ul>
+			</div>
+		</aside>
+		<div class="dislpayArrow hidden-xs">
+			<a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a>
+		</div>
+		<!--_footer 作为公共模版分离出去-->
+		<!--<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+		<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script>
+		<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.page.js"></script>-->
+		<!--/_footer /作为公共模版分离出去-->
+		<script type="text/javascript">
+			$(document).ready(function() {
+				var links = $("ul li a");
+				var index = 0; //默认第一个菜单项
+				//取当前URL最后一个/后面的文件名，pop方法是删除最后一个元素并返回最后一个元素
+				var url = location.href.split("?")[0].split("/").pop();
+				if(url) { //如果有取到，则进行匹配，否则默认首页（即index所指向的那个）
+					for(var i = 0; i < links.length; i++) { //遍历menu中的链接地址
+						if(links[i].href.indexOf(url) != -1) {
+							index = i;
+							break;
+						}
+					}
+				}
+				
+				var item = url.split('.')[0];
+				$("#" + item).addClass("current"); //给对应的<li>增加选中样式
+				var parentNode = $("#" + item).parent();
+				var grandparentNode = parentNode.parent();
+				//判断祖父结点是否为dd
+				if(grandparentNode.is("dd")) {
+					grandparentNode.css("display", "block");
+					grandparentNode.siblings().addClass("selected");
+				}
+				
+				//1.超级管理员，2.录入管理员，3.抄表管理员，4.二级表普通管理员，
+				//5.领导，6.一级表普通管理员
+				var role = $.cookie('role');
+				console.log("menu");
+				console.log(role);
+				role = parseInt(role);
+				switch (role){
+					case 1:
+						break;
+					case 2:
+						$("#menu-user").addClass("hidden");
+						$("#menu-watermeter").addClass("hidden");
+						$("#menu-electrmeter").addClass("hidden");
+						$("#menu-copy").addClass("hidden");
+						$("#menu-account").addClass("hidden");
+						$("#menu-address").addClass("hidden");
+						$("#menu-analysis").addClass("hidden");
+						break;
+					case 3:
+						$("#menu-user").addClass("hidden");
+						$("#menu-watermeter").addClass("hidden");
+						$("#menu-electrmeter").addClass("hidden");
+						$("#menu-waterprice").addClass("hidden");
+						$("#menu-electrprice").addClass("hidden");
+						$("#menu-top").addClass("hidden");
+						$("#menu-account").addClass("hidden");
+						$("#menu-address").addClass("hidden");
+						$("#menu-analysis").addClass("hidden");
+						break;
+					case 4:
+						$("#menu-user").addClass("hidden");
+						$("#menu-waterprice").addClass("hidden");
+						$("#menu-electrprice").addClass("hidden");
+						$("#menu-copy").addClass("hidden");
+						$("#menu-account").addClass("hidden");
+						$("#menu-address").addClass("hidden");
+						$("#menu-analysis").addClass("hidden");
+						break;
+					case 5:
+						break;
+					case 6:
+						$("#menu-user").addClass("hidden");
+						$("#menu-watermeter").addClass("hidden");
+						$("#menu-electrmeter").addClass("hidden");
+						$("#menu-top").addClass("hidden");
+						$("#menu-copy").addClass("hidden");
+						$("#menu-account").addClass("hidden");
+						$("#menu-address").addClass("hidden");
+						$("#menu-analysis").addClass("hidden");
+						break;
+					case 7:
+						$("#menu-user").addClass("hidden");
+						$("#menu-waterprice").addClass("hidden");
+						$("#menu-electrprice").addClass("hidden");
+						$("#menu-copy").addClass("hidden");
+						$("#menu-account").addClass("hidden");
+						$("#menu-address").addClass("hidden");
+						$("#menu-analysis").addClass("hidden");
+						break;
+					default:
+						break;
+				}
+			});
+			$(".Hui-aside").Huifold({
+				titCell: '.menu_dropdown dl dt',
+				mainCell: '.menu_dropdown dl dd',
+			});
+		</script>
+	</body>
+
+</html>

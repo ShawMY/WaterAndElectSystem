@@ -1,0 +1,256 @@
+﻿<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="Bookmark" href="favicon1.ico">
+		<link rel="Shortcut Icon" href="favicon1.ico" />
+		<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+		<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+		<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+		<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script><![endif]-->
+		<!--/meta 作为公共模版分离出去-->
+
+		<title>报警管理 - 浙江工商大学水电管理系统</title>
+	</head>
+
+	<body>
+		<!--_header 作为公共模版分离出去-->
+		<div class="_header"></div>
+		<!--/_header 作为公共模版分离出去-->
+
+		<!--_menu 作为公共模版分离出去-->
+		<div class="_menu"></div>
+		<!--/_menu 作为公共模版分离出去-->
+		<section class="Hui-article-box">
+			<div class="Hui-article">
+				<div class="cl pd-5 bg-1 bk-gray mt-20" id="btn-area">
+					<span class="l"><a href="javascript:;" onclick="updataMsg()" class="btn btn-primary radius">已读</a> </span>
+				</div>
+				<article class="cl pd-5">
+					<div class="mt-20">
+						<table id="example1" class="table table-border table-bordered table-hover table-bg table-sort" cellspacing="0" width="100%">
+							<thead>
+
+							</thead>
+						</table>
+						<div id="paging"></div>
+					</div>
+				</article>
+			</div>
+		</section>
+
+		<!--_footer 作为公共模版分离出去-->
+		<script type="text/javascript" src="ip.js"></script>
+		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+		<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script>
+		<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.page.js"></script>
+		<!--/_footer /作为公共模版分离出去-->
+
+		<!--请在下方写此页面业务相关的脚本-->
+		<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>
+		<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
+		<script type="text/javascript">
+			/*公共数据*/
+			//			var ip = 'http://101.132.45.14:8080/shuidiansystem';
+			var getUrl = '/api/alarm/detail';
+			var role = 0,
+				dataSet = [],
+				checkedSet = [];
+
+			$(function() {
+				/*导入公共组件*/
+				$("._header").load("_header.html");
+				$("._menu").load("_menu.html");
+				isLogin();
+				getList(1);
+
+			});
+
+			function isLogin() {
+				if($.cookie("isLogin") == 'null') {
+					window.location.href = "loginTip.html";
+				}
+			}
+
+			/* 根据分页获取列表信息 */
+			function getList(curr) {
+				$.ajax({
+					type: "get",
+					url: ip + getUrl,
+					success: function(res) {
+						dataSet = res.content.info;
+						if($('#example1').hasClass('dataTable')) {
+							var oldTable = $('#example1').dataTable();
+							oldTable.fnClearTable(); //清空一下table
+							oldTable.fnDestroy(); //还原初始化了的dataTable
+							$('#example1').empty();
+						}
+						setTable();
+						//						pagination(res.content.page, res.content.pageNum);
+					},
+					async: true
+				});
+			}
+
+			function setTable() {
+				/*表格数据动态渲染*/
+				var resultTable = $('#example1').DataTable({
+					data: dataSet,
+					columns: [{
+							className: "td-checkbox",
+							data: null,
+							width: '30px',
+							render: function(data, type, row, meta) {
+								var content = '<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">';
+								if(checkedSet.indexOf(data.id) != -1) {
+									content += '<input type="checkbox" class="group-checkable" value="' + data.id + '" checked/>';
+								} else {
+									content += '<input type="checkbox" class="group-checkable" value="' + data.id + '" />';
+								}
+								content += '	<span></span>';
+								content += '</label>';
+								return content;
+							}
+						}, {
+							title: "序号",
+							width: "50px",
+							data: null
+						},
+						{
+							title: "表记编号",
+							data: "code"
+						},
+						{
+							title: "时间",
+							data: "time"
+						},
+						{
+							title: "报警原因",
+							data: "info"
+						}
+					],
+					aoColumnDefs: [{
+						orderable: false,
+						aTargets: [0, 1]
+					}],
+					paging: false,
+					bFilter: false,
+					info: false,
+				});
+
+				/* 设置第一列 - 序列化 */
+				resultTable.on('order.dt search.dt', function() {
+					resultTable.column(1, {
+						search: 'applied',
+						order: 'applied'
+					}).nodes().each(function(cell, i) {
+						cell.innerHTML = i + 1;
+					});
+				}).draw();
+
+				/*复选框*/
+				$('#example1').on("change", ":checkbox", function() {
+					if($(this).is("[name='keeperUserGroup-checkable']")) {
+						// 全选
+						if($(this).is(':checked')) {
+							getAllCode();
+						} else {
+							cancelAllChecked();
+						}
+					} else {
+						// 一般复选
+						//console.log($(this).val());
+						if($(this).is(':checked')) {
+							var index = checkedSet.indexOf($(this).val());
+							if(index == -1) {
+								checkedSet.push($(this).val());
+							}
+						} else {
+							var index = checkedSet.indexOf($(this).val());
+							if(index > -1) {
+								checkedSet.splice(index, 1);
+							}
+						}
+					}
+					//					//console.log(checkedSet);
+				});
+
+				/*遍历-获取所有typeCode*/
+				function getAllCode() {
+					checkedSet = [];
+					$.each(dataSet, function(index, value) {
+						checkedSet.push(value.id);
+					});
+				}
+
+				/*取消全选*/
+				function cancelAllChecked() {
+					checkedSet = [];
+				}
+			}
+
+			//分页
+			//			function pagination(curr) {
+			//				laypage({
+			//					cont: 'paging', //容器。值支持id名、原生dom对象，jquery对象。【如该容器为】：&lt;div id="page1">&lt;/div>
+			//					pages: sum, //通过后台拿到的总页数
+			//					curr: curr, //初始化当前页
+			//					jump: function(e, first) { //触发分页后的回调
+			//						console.log(e);
+			//						if(!first) {
+			//							getList(e.curr);
+			//
+			//						}
+			//
+			//					}
+			//				});
+			//			}
+
+			function updataMsg() {
+				$.ajax({
+					type: "post",
+					url: ip + '/api/alarm/update',
+					data: JSON.stringify({
+						ids: checkedSet
+					}),
+					contentType: 'application/json',
+					dataType: 'json',
+					success: function(res) {
+						if(res.code == 200) {
+							layer.msg(res.msg, {
+								icon: 1,
+								time: 3000
+							});
+						} else {
+							layer.msg(res.msg, {
+								icon: 2,
+								time: 3000
+							});
+						}
+						
+						location.reload();
+					},
+					async: true
+				});
+			}
+		</script>
+		<!--/请在上方写此页面业务相关的脚本-->
+	</body>
+
+</html>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.zjgsu.shuidiansys.dao.IUserCategoryDao">
+
+	<select id="getRowCount" resultType="int">
+		select count(*) from user_category
+	</select>
+	
+	<select id="selectByParams" resultType="com.zjgsu.shuidiansys.pojo.UserCategory" parameterType="map">
+		select * from user_category
+		order by userCategoryId desc
+		limit ${offset}, ${size}
+	</select>
+
+	<update id="updateUserCategory" parameterType="com.zjgsu.shuidiansys.pojo.UserCategory">
+		update user_category
+		<set>
+			<if test="userCategoryname != null ">userCategoryname=#{userCategoryname},</if>
+			<if test="waterPrice != null ">waterPrice =#{waterPrice},</if>
+			<if test="electricityPrice != null">electricityPrice =#{electricityPrice},</if>
+			<if test="waterFreeQuata !=null">waterFreeQuata =#{waterFreeQuata},</if>
+			<if test="electricityFreeQuata!=null ">electricityFreeQuata =#{electricityFreeQuata},</if>
+			<if test="taxWaterPrice !=null ">taxWaterPrice =#{taxWaterPrice},</if>
+			<if test="taxElectricityPrice !=null ">taxElectricityPrice =#{taxElectricityPrice},</if>
+		</set>
+		where userCategoryId=#{userCategoryId}
+	</update>
+
+	<!-- 批量删除 -->
+	<delete id="deleteUserCategory" parameterType="java.util.List" >
+		delete from user_category where userCategoryId in
+		<foreach collection = "list" item="id" index="no" open="("
+				 separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<insert id="addUserCategory" parameterType="com.zjgsu.shuidiansys.pojo.UserCategory" useGeneratedKeys="true" keyProperty="userCategoryId">
+		insert into user_category( userCategoryname, waterPrice, electricityPrice, waterFreeQuata,electricityFreeQuata,taxWaterPrice,taxElectricityPrice)
+               values(#{userCategoryname}, #{waterPrice}, #{electricityPrice}, #{waterFreeQuata}, #{electricityFreeQuata},#{taxWaterPrice},#{taxElectricityPrice})
+	</insert>
+
+	<select id="selectById" resultType="com.zjgsu.shuidiansys.pojo.UserCategory">
+		select * from user_category
+		where userCategoryId=#{id}
+	</select>
+
+	<select id="selectAll" resultType="com.zjgsu.shuidiansys.pojo.UserCategory">
+		select * from user_category
+	</select>
+</mapper> 

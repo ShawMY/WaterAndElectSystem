@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.zjgsu.shuidiansys.dao.ITopWaterMeterDao">
+
+    <select id="getRowCount" resultType="int">
+		select count(*) from top_water_meter
+	</select>
+
+
+    <select id="selectByParams" resultType="com.zjgsu.shuidiansys.pojo.TopWaterMeter" parameterType="map">
+		select * from top_water_meter
+		order by id desc
+		limit ${offset}, ${size}
+	</select>
+
+    <update id="updateTopWaterMeter" parameterType="com.zjgsu.shuidiansys.pojo.TopWaterMeter">
+        update top_water_meter
+        <set>
+            <if test="userNumber != null and userNumber !=''">userNumber =#{userNumber},</if>
+            <if test="userName != null and userName !=''">userName =#{userName},</if>
+            <if test="waterMeterId != null and waterMeterId !=''">waterMeterId =#{waterMeterId},</if>
+            <if test="location !=null and location !=''">location =#{location},</if>
+            <if test="area!=null and area !=''">area =#{area},</if>
+            <if test="previousDegree !=null ">previousDegree =#{previousDegree},</if>
+            <if test="thisDegree !=null ">thisDegree =#{thisDegree},</if>
+            <if test="actualUsing !=null ">actualUsing =#{actualUsing},</if>
+            <if test="price !=null ">price =#{price},</if>
+            <if test="actualPrice !=null ">actualPrice =#{actualPrice},</if>
+            <if test="date !=null and date !='' ">date =#{date},</if>
+            <if test="nominalUsage!=null">nominalUsage=#{nominalUsage}</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!-- 批量删除 -->
+    <delete id="deleteTopWaterMeter" parameterType="java.util.List" >
+        delete from top_water_meter where id in
+        <foreach collection = "list" item="id" index="no" open="("
+                 separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <insert id="addTopWaterMeter" parameterType="com.zjgsu.shuidiansys.pojo.TopWaterMeter">
+		insert into top_water_meter( userNumber, userName, waterMeterId, location,area,thisDegree,previousDegree,actualUsing,price,actualPrice,remarks,date,nominalUsage)
+               values(#{userNumber}, #{userName}, #{waterMeterId}, #{location}, #{area},#{thisDegree},#{previousDegree},#{actualUsing},#{price},#{actualPrice},#{remarks},#{date},#{nominalUsage})
+	</insert>
+
+    <select id="selectByIds" resultType="com.zjgsu.shuidiansys.pojo.TopWaterMeter">
+        SELECT * FROM top_water_meter
+        WHERE id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="selectByQuery" resultType="com.zjgsu.shuidiansys.pojo.TopWaterMeter" parameterType="map">
+		select * from top_water_meter
+		<where>
+            <if test="area != null and area !=''">area =#{area} and </if>
+            <if test="timeStart != null and timeStart != '' ">
+                <![CDATA[date >= #{timeStart} and]]>
+            </if>
+            <if test="timeEnd != null and timeEnd != '' ">
+                <![CDATA[ date <= #{timeEnd} and]]>
+            </if>
+            1=1
+        </where>
+		order by id desc
+	</select>
+
+    <select id="selectById" resultType="com.zjgsu.shuidiansys.pojo.TopWaterMeter">
+        SELECT * FROM top_water_meter
+        WHERE id = #{id}
+    </select>
+</mapper>

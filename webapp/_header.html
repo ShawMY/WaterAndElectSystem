@@ -1,0 +1,177 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="Bookmark" href="favicon.ico">
+		<link rel="Shortcut Icon" href="favicon.ico" />
+		<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+		<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+		<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+		<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script><![endif]-->
+
+		<title></title>
+	</head>
+
+	<body>
+		<header class="navbar-wrapper">
+			<div class="navbar navbar-fixed-top">
+				<div class="container-fluid cl">
+					<a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml" style="height: 55px; font-size: 24px; padding-top: 5px;">浙江工商大学水电管理系统</a>
+					<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
+						<ul class="cl">
+							<li class="dropDown dropDown_hover" style="height: 55px; padding-top: 7px;">
+								<a href="#" class="dropDown_A" id="role" style="font-size: 18px;"><span id="role-name"></span><i class="Hui-iconfont">&#xe6d5;</i></a>
+								<ul class="dropDown-menu menu radius box-shadow" style="font-size: 18px;">
+									<li>
+										<a href="#" onclick="showModal2()">修改密码</a>
+									</li>
+									<li>
+										<a href="#" onclick="logout()">退出</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+			<div id="modal-demo2" style="top: 100px!important;" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content radius">
+						<div class="modal-header">
+							<h3 class="modal-title">修改密码</h3>
+							<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+						</div>
+						<div class="modal-body">
+							<div class="row cl">
+								<label class="form-label col-xs-3 col-sm-3 text-r"><span class="c-red">*</span>账户：</label>
+								<div class="formControls col-xs-8 col-sm-8">
+									<input type="text" class="input-text" value="" placeholder="" id="account" name="account">
+								</div>
+							</div>
+							<div class="row cl mt-20">
+								<label class="form-label col-xs-3 col-sm-3 text-r"><span class="c-red">*</span>旧密码：</label>
+								<div class="formControls col-xs-8 col-sm-8">
+									<input type="password" class="input-text" value="" placeholder="" id="pwd" name="pwd">
+								</div>
+							</div>
+							<div class="row cl mt-20">
+								<label class="form-label col-xs-3 col-sm-3 text-r"><span class="c-red">*</span>新密码：</label>
+								<div class="formControls col-xs-8 col-sm-8">
+									<input type="password" class="input-text" value="" placeholder="" id="password" name="password">
+								</div>
+							</div>
+							<div class="row cl mt-20">
+								<label class="form-label col-xs-3 col-sm-3 text-r"><span class="c-red">*</span>重复输入：</label>
+								<div class="formControls col-xs-8 col-sm-8">
+									<input type="password" class="input-text" value="" placeholder="" id="password1" name="password1">
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-primary" type="button" onclick="chgpwd()">确定</button>
+							<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+	</body>
+	<script type="text/javascript" src="ip.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			//1.超级管理员，2.录入管理员，3.抄表管理员，4.二级表普通管理员，
+			//5.领导，6.收缴费管理员，7.一级表普通管理员，
+			var role = $.cookie('role');
+			console.log("header");
+			console.log(role);
+			role = parseInt(role);
+			switch(role) {
+				case 1:
+					$("#role-name").html("超级管理员");
+					break;
+				case 2:
+					$("#role-name").html("录入管理员");
+					break;
+				case 3:
+					$("#role-name").html("抄表管理员");
+					break;
+				case 4:
+					$("#role-name").html("二级表普通管理员");
+					break;
+				case 5:
+					$("#role-name").html("领导");
+					break;
+				case 6:
+					$("#role-name").html("收缴费管理员");
+					break;
+				case 7:
+					$("#role-name").html("一级表普通管理员");
+					break;
+				default:
+					break;
+			}
+		});
+
+		function showModal2() {
+			$("#modal-demo2").modal("show");
+		}
+
+		function chgpwd() {
+			if($("#password").val() != $("#password1").val()) {
+				layer.msg('两次输入不一致!', {
+					icon: 2,
+					time: 1000
+				});
+				return false;
+			}
+			
+//			var ip = 'http://localhost:8080/shuidiansystem',
+				chgUrl = '/api/chgPwd';
+
+			$.ajax({
+				type: "post",
+				url: ip + chgUrl,
+				data: JSON.stringify({
+					account: $("#account").val(),
+					pwd: $("#pwd").val(),
+					newPwd: $("#password").val(),
+				}),
+				contentType: 'application/json',
+				dataType: 'json',
+				success: function(res) {
+					if(res.code == 200) {
+						layer.msg('修改密码成功!', {
+							icon: 1,
+							time: 2000
+						});
+					}
+					location.reload();
+				},
+				async: true
+			});
+		}
+
+		function logout() {
+			//删除cookie
+			console.log($.cookie('isLogin'));
+			$.cookie('isLogin', null);
+			console.log($.cookie('isLogin'));
+			location.href='login.html';
+		}
+	</script>
+
+</html>

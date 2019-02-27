@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.zjgsu.shuidiansys.dao.IElectricCopyDao">
+
+    <select id="getRowCountByPage" resultType="int">
+		select count(*) from electric_copy
+	</select>
+
+    <select id="getRowCountByQuery" resultType="int" parameterType="map">
+        select count(*) from electric_copy
+        <where>
+            <if test="electric.electricityMeterId != null and electric.electricityMeterId!=''">electricityMeterId=#{electric.electricityMeterId} and</if>
+            <if test="beginTime != null and beginTime != '' ">
+                <![CDATA[meterReadTime >= #{beginTime} and]]>
+            </if>
+            <if test="endTime != null and endTime != '' ">
+                <![CDATA[ meterReadTime <= #{endTime} and]]>
+            </if>
+            <if test="electric.id != null and electric.id!=0">id =#{electric.id} and</if>
+            <if test="electric.previousDegree != null and electric.previousDegree!=0">previousDegree =#{electric.previousDegree} and</if>
+            <if test="electric.meterReader !=null and electric.meterReader!='' ">meterReader =#{electric.meterReader} and</if>
+            <if test="electric.firstAddress !=null and electric.firstAddress!='' ">firstAddress =#{electric.firstAddress} and</if>
+            <if test="electric.secondAddress !=null and electric.secondAddress!='' ">secondAddress =#{electric.secondAddress} and</if>
+            <if test="electric.thirdAddress !=null and electric.thirdAddress!='' ">thirdAddress =#{electric.thirdAddress} and</if>
+            <if test="electric.fourthAddress !=null and electric.fourthAddress!='' ">fourthAddress =#{electric.fourthAddress} and</if>
+            <if test="electric.fifthAddress !=null and electric.fifthAddress!='' ">fifthAddress =#{electric.fifthAddress} and</if>
+            <if test="electric.sixthAddress !=null and electric.sixthAddress!='' ">sixthAddress =#{electric.sixthAddress} and</if>
+            1=1
+        </where>
+    </select>
+
+    <select id="selectByParams" resultType="com.zjgsu.shuidiansys.pojo.ElectricCopy" parameterType="map">
+		select * from electric_copy
+		order by id desc
+		limit ${offset}, ${size}
+	</select>
+
+    <select id="selectByQuery" resultType="com.zjgsu.shuidiansys.pojo.ElectricCopy" parameterType="map">
+        select * from electric_copy
+        <where>
+            <if test="electric.electricityMeterId != null and electric.electricityMeterId!=''">electricityMeterId=#{electric.electricityMeterId} and</if>
+            <if test="beginTime != null and beginTime != '' ">
+                <![CDATA[meterReadTime >= #{beginTime} and]]>
+            </if>
+            <if test="endTime != null and endTime != '' ">
+                <![CDATA[ meterReadTime <= #{endTime} and]]>
+            </if>
+            <if test="electric.id != null and electric.id!=0">id =#{electric.id} and</if>
+            <if test="electric.previousDegree != null and electric.previousDegree!=0">previousDegree =#{electric.previousDegree} and</if>
+            <if test="electric.meterReader !=null and electric.meterReader!='' ">meterReader =#{electric.meterReader} and</if>
+            <if test="electric.firstAddress !=null and electric.firstAddress!='' ">firstAddress =#{electric.firstAddress} and</if>
+            <if test="electric.secondAddress !=null and electric.secondAddress!='' ">secondAddress =#{electric.secondAddress} and</if>
+            <if test="electric.thirdAddress !=null and electric.thirdAddress!='' ">thirdAddress =#{electric.thirdAddress} and</if>
+            <if test="electric.fourthAddress !=null and electric.fourthAddress!='' ">fourthAddress =#{electric.fourthAddress} and</if>
+            <if test="electric.fifthAddress !=null and electric.fifthAddress!='' ">fifthAddress =#{electric.fifthAddress} and</if>
+            <if test="electric.sixthAddress !=null and electric.sixthAddress!='' ">sixthAddress =#{electric.sixthAddress} and</if>
+            1=1
+        </where>
+        order by id desc
+        limit ${offset}, ${size}
+    </select>
+    <update id="update" parameterType="com.zjgsu.shuidiansys.pojo.ElectricCopy">
+        update electric_copy
+        <set>
+            <if test="electricityMeterId != null and electricityMeterId!=''">electricityMeterId=#{electricityMeterId},</if>
+            <if test="meterReadTime != null and meterReadTime!=''">meterReadTime=#{meterReadTime},</if>
+            <if test="previousDegree != null and previousDegree!=0">previousDegree =#{previousDegree},</if>
+            <if test="meterReader !=null and meterReader!='' ">meterReader =#{meterReader},</if>
+            <if test="firstAddress !=null and firstAddress!='' ">firstAddress =#{firstAddress},</if>
+            <if test="secondAddress !=null and secondAddress!='' ">secondAddress =#{secondAddress},</if>
+            <if test="thirdAddress !=null and thirdAddress!='' ">thirdAddress =#{thirdAddress},</if>
+            <if test="fourthAddress !=null and fourthAddress!='' ">fourthAddress =#{fourthAddress},</if>
+            <if test="fifthAddress !=null and fifthAddress!='' ">fifthAddress =#{fifthAddress},</if>
+            <if test="sixthAddress !=null and sixthAddress!='' ">sixthAddress =#{sixthAddress},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!-- 批量删除 -->
+    <delete id="delete" parameterType="java.util.List" >
+        delete from electric_copy where id in
+        <foreach collection = "list" item="id" index="no" open="("
+                 separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <insert id="insert" parameterType="com.zjgsu.shuidiansys.pojo.ElectricCopy">
+		insert into electric_copy( id,electricityMeterId,firstAddress,secondAddress,thirdAddress,fourthAddress,fifthAddress,sixthAddress,previousDegree,meterReader,meterReadTime)
+               values(#{id},#{electricityMeterId}, #{firstAddress},#{secondAddress},#{thirdAddress},#{fourthAddress},#{fifthAddress},#{sixthAddress},#{previousDegree},#{meterReader},#{meterReadTime})
+	</insert>
+
+    <select id="selectByIds" resultType="com.zjgsu.shuidiansys.pojo.ElectricCopy">
+        SELECT * FROM electric_copy
+        WHERE id in
+        <foreach collection="Ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="getRowCountById" resultType="int" parameterType="string">
+        select count(*) from electric_copy
+        where electricityMeterId = #{id}
+    </select>
+</mapper>
