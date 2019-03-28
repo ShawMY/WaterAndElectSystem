@@ -1,2 +1,2 @@
 # WaterAndElectSys
-It's my first project written by Spring MVC
+This is the first project I wrote using springMVC.
